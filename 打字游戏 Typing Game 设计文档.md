@@ -16,7 +16,7 @@
 
 各模块间关系见流程图
 
-![流程图](C:\Users\Syhien\Desktop\流程图.png)
+![流程图](流程图.png)
 
 ### admin.cpp
 
