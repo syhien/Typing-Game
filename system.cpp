@@ -1,11 +1,15 @@
-#include "typing_game.h"
 #include <fstream>
+
+void GameNew()
+{
+
+}
 
 void GameInitialize()
 {
 	
 }
-
+/*
 void GameSafe()
 {
 	std::ofstream out;
@@ -18,7 +22,7 @@ void GameSafe()
 	for (auto i : text)
 		out << i.Id << std::endl << i.level << std::endl << i.LongText << std::endl;
 }
-
+*/
 void GameExit()
 {
 

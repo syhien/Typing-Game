@@ -1,5 +1,7 @@
-#include "typing_game.h"
 #include <iostream>
+#include "admin.h"
+
+Admin admin;
 
 void Admin::AdminSetPassword()
 {
