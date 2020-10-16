@@ -1,9 +1,11 @@
 #pragma once
 #include <string>
+#include <vector>
+#include <time.h>
 
 struct Record
 {
-	std::string Time;
+	tm time;
 	int UsedTime;
 	int TextId;
 	int UserId;

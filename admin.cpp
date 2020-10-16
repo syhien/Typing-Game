@@ -1,11 +1,18 @@
 #include <iostream>
 #include "admin.h"
 
-Admin admin;
-
-void Admin::AdminSetPassword()
+void Admin::NewAdminSetPassword()
 {
+	std::cout << "新管理员，请输入你的密码，密码中请不要包含空格，空格后的字符会被丢弃\n";
 	std::cin >> Password_;
+	std::cin.get();
+	std::cout << "管理员密码将设为：" << Password_ << std::endl << "按任意键继续";
+	std::cin.get();
+}
+
+void Admin::AdminSetPassword(std::string password)
+{
+	Password_ = password;
 }
 
 void Admin::AdminChangePassword()

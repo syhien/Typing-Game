@@ -4,7 +4,8 @@
 class Admin
 {
 public:
-	void AdminSetPassword();
+	void NewAdminSetPassword();
+	void AdminSetPassword(std::string password);
 	void AdminChangePassword();
 private:
 	std::string Password_;
