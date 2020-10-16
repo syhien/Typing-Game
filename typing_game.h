@@ -40,6 +40,7 @@ private:
 struct Text
 {
 	int Id;
+	int level;
 	std::string LongText;
 };
 
