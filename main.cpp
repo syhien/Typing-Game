@@ -54,14 +54,13 @@ int main()
 				Text new_text;
 				fin >> num_of_sentences;
 				fin >> text_level;
+				fin.get();
 				new_text.SetId(text_id);
 				new_text.SetLevel(text_level);
-				fin.get();
 				for (int j = 0; j < num_of_sentences; j++)
 				{
 					string sentence;
 					getline(fin, sentence);
-					fin.get();
 					new_text.AddSentence(sentence);
 				}
 				text.push_back(new_text);
