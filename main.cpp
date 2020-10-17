@@ -92,6 +92,5 @@ int main()
 		}
 	}
 
-	cout << "ÊäÈëOK×Ó\n";
 	return 0;
 }
