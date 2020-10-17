@@ -2,17 +2,26 @@
 #include <string>
 #include <vector>
 
-struct Text_Info
+class Words
 {
-	int Id;
-	int level;
-	std::string LongText;
+public:
+	void SetId(int id);
+	void SetLevel(int level);
+	void AddWord(std::string word);
+private:
+	int id_;
+	int level_;
+	std::vector <std::string> words_;
 };
 
 class Text
 {
 public:
-	void AddText(Text_Info new_text);
+	void SetId(int id);
+	void SetLevel(int level);
+	void AddSentence(std::string sentence);
 private:
-	std::vector <Text_Info> all_text;
+	int id_;
+	int level_;
+	std::vector <std::string> sentences_;
 };

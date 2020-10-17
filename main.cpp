@@ -15,7 +15,8 @@ int main()
 	system("cls");
 	Admin admin;
 	User user;
-	Text text;
+	vector <Text> text;
+	vector <Words> word;
 	vector <Record> record;
 	ifstream fin("game.data");
 	if (!fin)//无配置，新初始化游戏
@@ -46,11 +47,40 @@ int main()
 		{
 			int text_id;
 			int text_level;
-			string text_longtext;
-			fin >> text_id >> text_level;
-			fin.get();
-			getline(fin, text_longtext);
-			text.AddText({ text_id,text_level,text_longtext });
+			fin >> text_id;
+			if (text_id % 2)//读文章
+			{
+				int num_of_sentences;
+				Text new_text;
+				fin >> num_of_sentences;
+				fin >> text_level;
+				new_text.SetId(text_id);
+				new_text.SetLevel(text_level);
+				fin.get();
+				for (int j = 0; j < num_of_sentences; j++)
+				{
+					string sentence;
+					getline(fin, sentence);
+					fin.get();
+					new_text.AddSentence(sentence);
+				}
+				text.push_back(new_text);
+			}
+			else//读单词
+			{
+				int num_of_words;
+				fin >> num_of_words >> text_level;
+				Words new_word;
+				new_word.SetId(text_id);
+				new_word.SetLevel(text_level);
+				for (int j = 0; j < num_of_words; j++)
+				{
+					string tmp_word;
+					fin >> tmp_word;
+					new_word.AddWord(tmp_word);
+				}
+				word.push_back(new_word);
+			}
 		}
 		//读记录
 		int num_of_records;
@@ -58,7 +88,7 @@ int main()
 		for (int i = 0; i < num_of_records; i++)
 		{
 			Record new_record;
-			fin >> new_record.time.tm_sec >> new_record.time.tm_min >> new_record.time.tm_hour >> new_record.time.tm_mday >> new_record.time.tm_mon >> new_record.time.tm_year >> new_record.time.tm_wday >> new_record.time.tm_yday >> new_record.time.tm_isdst >> new_record.UsedTime >> new_record.TextId >> new_record.UserId;
+			fin >> new_record.time.tm_sec >> new_record.time.tm_min >> new_record.time.tm_hour >> new_record.time.tm_mday >> new_record.time.tm_mon >> new_record.time.tm_year >> new_record.time.tm_wday >> new_record.time.tm_yday >> new_record.time.tm_isdst >> new_record.used_time >> new_record.text_id >> new_record.user_id;
 			record.push_back(new_record);
 		}
 	}

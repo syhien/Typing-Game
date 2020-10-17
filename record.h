@@ -6,7 +6,7 @@
 struct Record
 {
 	tm time;
-	int UsedTime;
-	int TextId;
-	int UserId;
+	int used_time;
+	int text_id;
+	int user_id;
 };

@@ -3,9 +3,9 @@
 #include <string>
 struct User_Info
 {
-	int Id_;
-	std::string Name_;
-	std::string Password_;
+	int id_;
+	std::string name_;
+	std::string password_;
 };
 class User
 {
@@ -13,5 +13,5 @@ public:
 	std::string GetName(int Id);
 	void AddUser(User_Info new_user);
 private:
-	std::vector <User_Info> all_user;
+	std::vector <User_Info> all_user_;
 };

@@ -8,5 +8,5 @@ public:
 	void AdminSetPassword(std::string password);
 	void AdminChangePassword();
 private:
-	std::string Password_;
+	std::string password_;
 };
