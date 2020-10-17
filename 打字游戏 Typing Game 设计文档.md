@@ -6,108 +6,72 @@
 
 ## 总体架构
 
-- typing_game.h 实现相关的变量、函数、类的声明
-- admin.cpp 实现管理员相关的操作
-- system.cpp 实现游戏的初始化、游戏的存储等操作
-- game.cpp 实现游戏的主要内容
-- user.cpp 实现用户相关的操作
-- main.cpp 实现程序主函数main()
-- game.data 存储游戏数据
-
-各模块间关系见流程图
-
 ![流程图](流程图.png)
 
-### admin.cpp
+- admin.h和admin.cpp 实现管理员的相关操作
 
-主要用于实现管理员的操作：打字练习文本的增改删，用户管理，游戏设定调整
+管理员密码设定、管理员密码修改、管理员对用户组的各种操作、管理员对游戏配置的各种操作
 
-- GameTextAdd()
+- game.h和game.cpp 实现游戏内容
 
-从控制台或指定文件路径获取新的打字练习文本
+主要的游戏内容，具体实现见代码
 
-- GameTextEdit()
+- record.h 提供了对游戏记录的定义
 
-输出需要修改的原文本到控制台，管理员将其拷贝到文本编辑器修改后再从控制台输入。
+```c++
+struct Record
+{
+	tm time;
+	int used_time;
+	int text_id;
+	int user_id;
+};
+```
 
-- GameTextDelete()
+游戏记录包含游戏时间、游戏用时、游戏文本的编号、用户编号
 
-删除指定的打字练习文本
+- text.h和text.cpp 实现游戏文本的相关操作
 
-- UserAllQuery()
+构建两个类，`class Words{}`和`class Text{}`分别实现对多单词的文本的操作和对多行的文本的操作
 
-获取所有的用户信息，输出到控制台
+人为地，令所有多单词文本的`text_id`最后1位为偶数，所有多行文本的`text_id`最后1位为奇数，以实现数据读入、存储时的快速区分。
 
-- UserQuery()
+- user.h和user.cpp 实现用户的相关操作
 
-获取指定用户的信息，输出到控制台
+构造一个所有用户类
 
-- UserEdit()
+```c++
+class User
+{
+public:
+	//相关函数
+private:
+	std::vector <User_Info> all_user_;
+};
+```
 
-在程序的引导下修改用户的包括密码在内的各项信息或删除用户
+某个用户的信息由编号、不含空格的昵称和不含空格的密码组成
 
-- GameLevelEdit()
+- main.cpp 实现对整个程序的控制
 
-修改游戏向用户开放的最低和最高难度
+`int main()`开头实现从已存在的配置文件game.data（或全新地从控制台）初始化游戏
 
-### system.cpp
+`return 0`前实现将游戏保存到配置文件game.data
 
-- GameInitialize()
+## 需求
 
-同目录下找到游戏配置文件，游戏初始化
+管理员需求：
 
-- GameNew()
+1. 管理员自身信息修改
+2. 对用户信息进行增删改
+3. 对游戏配置进行增删改
 
-同目录下未找到游戏配置文件，按预设参数初始化游戏
+用户（玩家）需求：
 
-- GameSave()
+1. 注册、登录、登出、注销
+2. 进行游戏
+3. 查看自己的所有游戏记录
+4. 查看某游戏关卡（即某文本）的所有玩家的游戏记录
+5. 查看某玩家的游戏记录
+6. **对其他玩家的记录发起挑战(feature)**
 
-保存游戏但不退出
-
-- GameExit()
-
-退出游戏
-
-### game.cpp
-
-- RoundSelect()
-
-引导用户选择游戏文本
-
-- NewRound()
-
-指定游戏文本，开始新游戏
-
-- GetRank()
-
-获取游戏所有用户战绩排名
-
-- GetGameRecord()
-
-获取当前用户的所有游戏记录
-
-### user.cpp
-
-- UserInitialize()
-
-从文件初始化用户列表
-
-- NewUser()
-
-创建一个新用户
-
-- QueryGameRecord()
-
-查询指定用户所有游戏记录
-
-- RankAllUser()
-
-对所有用户进行一定规则的排序并返回
-
-- UserProfileEdit()
-
-引导用户修改个人资料
-
-### 数据结构
-
-几乎全部使用线性表（std::vector）存储数据
