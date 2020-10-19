@@ -20,3 +20,8 @@ void Admin::AdminChangePassword()
 	std::cout << "请输入新的管理员密码:\n";
 	std::cin >> password_;
 }
+
+bool Admin::CheckPassword(std::string password)
+{
+	return password == password_;
+}

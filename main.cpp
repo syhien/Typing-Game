@@ -12,18 +12,95 @@
 #include <stdlib.h>
 using namespace std;
 
-const string ask_for_check = "（按Y确认，按N或其他按键取消）\n";
+const string ask_for_check = "（按y确认，按其他按键取消）\n";
 const string kick_to_continue = "按任意按键继续\n";
+
+Admin admin;
+User user;
+vector <Text> text;
+vector <Words> word;
+vector <Record> record;
+
+void AdminControl()
+{
+	bool admin_logout = 0;
+	while (!admin_logout)
+	{
+		system("cls");
+		cout << "管理员操作:\n1.查看所有用户\n2.新增用户\n3.修改用户信息\n4.删除用户\n5.查看所有文本\n6.修改文本\n7.删除文本\n8.查看难度开放情况\n9.修改难度开放情况\nESC.退出\n";
+		char ch = _getch();
+		User_Info new_user;
+		int edit_user_id;
+		User_Info edit_user;
+		switch (ch)
+		{
+		case '1':
+			user.PrintAllUser();
+			cout << kick_to_continue;
+			_getch();
+			break;
+		case '2':
+			cout << "输入新用户昵称（不含空格）和密码（不含空格），用空格或换行分割:\n";
+			new_user.id_ = rand() % 100000;
+			cin >> new_user.name_ >> new_user.password_;
+			user.AddUser(new_user);
+			cout << "添加完成\n" << kick_to_continue;
+			_getch();
+			break;
+		case '3':
+			cout << "输入待编辑新的用户的id\n";
+			cin >> edit_user_id;
+			edit_user = user.PopUser(edit_user_id);
+			if (edit_user.id_ == -1)
+			{
+				cout << "指定id用户不存在\n" << kick_to_continue;
+				_getch();
+				break;
+			}
+			cout << "是否修改昵称？该用户原昵称为:" << edit_user.name_ << endl << ask_for_check;
+			if (_getch() == 'y')
+			{
+				cout << "输入其新昵称:\n";
+				cin >> edit_user.name_;
+			}
+			cout << "是否修改密码？该用户原密码为:" << edit_user.password_ << endl << ask_for_check;
+			if (_getch() == 'y')
+			{
+				cout << "输入其新密码:\n";
+				cin >> edit_user.password_;
+			}
+			user.AddUser(edit_user);
+			cout << "修改完成\n" << kick_to_continue;
+			_getch();
+			break;
+		case '4':
+			cout << "输入待删除用户id\n";
+			cin >> edit_user_id;
+			edit_user = user.PopUser(edit_user_id);
+			if (edit_user.id_ == -1)
+			{
+				cout << "用户不存在，删除失败\n" << kick_to_continue;
+				_getch();
+			}
+			else
+			{
+				cout << "删除成功\n" << kick_to_continue;
+				_getch();
+			}
+			break;
+		case 27:
+			admin_logout = 1;
+			break;
+		default:
+			break;
+		}
+	}
+}
 
 int main()
 {
 	system("cls");
 	srand(time(0));
-	Admin admin;
-	User user;
-	vector <Text> text;
-	vector <Words> word;
-	vector <Record> record;
 	ifstream fin("game.data");
 	if (!fin)//无配置，新初始化游戏
 	{
@@ -102,7 +179,7 @@ int main()
 
 	int login_user_id;
 	bool already_login = 0;
-	while (1 and !already_login)
+	while (!already_login)
 	{
 		cout << "按下相应按键执行操作:\n1.用户登录\n2.用户注册\nESC.退出程序\n";
 		bool game_exit = 0;
@@ -112,17 +189,35 @@ int main()
 			User_Info new_user;//如果注册的话
 			string login_user_name;
 			string login_user_password;
+			string admin_password;
 			switch (ch)
 			{
 			case '1'://log in
 				cout << "请输入你的昵称：\n";
 				cin >> login_user_name;
-				fflush(stdin);
+				if (login_user_name == "admin" or login_user_name == "Admin")
+				{
+					cout << "输入管理员密码以验证身份:\n";
+					cin >> admin_password;
+					if (admin.CheckPassword(admin_password))
+					{
+						AdminControl();
+						cout << "\n退出管理员身份\n" << kick_to_continue;
+						_getch();
+						break;
+					}
+					else
+					{
+						cout << "管理员密码错误\n" << kick_to_continue;
+						_getch();
+						break;
+					}
+				}
 				login_user_id = user.GetId(login_user_name);
 				if (login_user_id == -1)//不存在
 				{
 					cout << "看起来系统并不存在昵称为" << login_user_name << "的用户\n需要注册一个昵称为" << login_user_name << "的用户吗？\n" << ask_for_check;
-					if (_getch() == 89)
+					if (_getch() == 'y')
 					{
 						new_user.id_ = rand() % 100000;
 						new_user.name_ = login_user_name;
@@ -158,7 +253,8 @@ int main()
 				cout << "输入你的用户密码，请不要使用空格:\n";
 				cin >> new_user.password_;
 				user.AddUser(new_user);
-				cout << "注册成功，请重新登录\n";
+				cout << "注册成功，请重新登录\n" << kick_to_continue;
+				_getch();
 				break;
 			case 27://ESC
 				game_exit = 1;
@@ -172,7 +268,7 @@ int main()
 		system("cls");
 	}
 
-	cout << "OKzi";
+	cout << "\n给DEBUG的自己小小鼓励\n";
 
 	return 0;
 }

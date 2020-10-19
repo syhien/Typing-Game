@@ -1,4 +1,5 @@
 #include "user.h"
+#include <iostream>
 std::vector <User> user;
 
 void User::AddUser(User_Info new_user)
@@ -29,4 +30,25 @@ bool User::CheckPassword(int id, std::string password)
 			if (i.password_ == password)
 				return 1;
 	return 0;
+}
+
+void User::PrintAllUser()
+{
+	for (auto i : all_user_)
+		std::cout << "id:" << i.id_ << ", name:" << i.name_ << ", password:" << i.password_ << std::endl;
+}
+
+User_Info User::PopUser(int id)
+{
+	for(auto i=all_user_.begin();i!=all_user_.end();i++)
+		if (i->id_ == id)
+		{
+			User_Info user_found;
+			user_found.id_ = id;
+			user_found.name_ = i->name_;
+			user_found.password_ = i->password_;
+			all_user_.erase(i);
+			return user_found;
+		}
+	return { -1,"","" };
 }
