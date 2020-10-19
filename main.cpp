@@ -27,7 +27,7 @@ void AdminControl()
 	while (!admin_logout)
 	{
 		system("cls");
-		cout << "管理员操作:\n1.查看所有用户\n2.新增用户\n3.修改用户信息\n4.删除用户\n5.查看所有文本\n6.修改文本\n7.删除文本\n8.查看难度开放情况\n9.修改难度开放情况\nESC.退出\n";
+		cout << "管理员操作:\n1.查看所有用户\n2.新增用户\n3.修改用户信息\n4.删除用户\n5.查看所有文本\n6.修改文本\n7.删除文本\n8.查看难度开放情况\n9.修改难度开放情况\na.修改管理员密码\nESC.退出\n";
 		char ch = _getch();
 		User_Info new_user;
 		int edit_user_id;
@@ -87,6 +87,11 @@ void AdminControl()
 				cout << "删除成功\n" << kick_to_continue;
 				_getch();
 			}
+			break;
+		case 'a':
+			admin.AdminChangePassword();
+			cout << kick_to_continue;
+			_getch();
 			break;
 		case 27:
 			admin_logout = 1;
