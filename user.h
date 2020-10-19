@@ -10,8 +10,10 @@ struct User_Info
 class User
 {
 public:
-	std::string GetName(int Id);
+	std::string GetName(int id);
+	int GetId(std::string name);//Ê§°Ü·µ»Ø-1
 	void AddUser(User_Info new_user);
+	bool CheckPassword(int id, std::string password);
 private:
 	std::vector <User_Info> all_user_;
 };

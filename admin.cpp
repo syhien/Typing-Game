@@ -6,7 +6,8 @@ void Admin::NewAdminSetPassword()
 	std::cout << "新管理员，请输入你的密码，密码中请不要包含空格，空格后的字符会被丢弃\n";
 	std::cin >> password_;
 	std::cout << "管理员密码将设为：" << password_ << std::endl << "按任意键继续";
-	std::cin.get();
+	_getch();
+	system("cls");
 }
 
 void Admin::AdminSetPassword(std::string password)

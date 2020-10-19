@@ -9,11 +9,16 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <stdlib.h>
 using namespace std;
+
+const string ask_for_check = "（按Y确认，按N或其他按键取消）\n";
+const string kick_to_continue = "按任意按键继续\n";
 
 int main()
 {
 	system("cls");
+	srand(time(0));
 	Admin admin;
 	User user;
 	vector <Text> text;
@@ -93,6 +98,81 @@ int main()
 		}
 	}
 
+	cout << "打字游戏Typing Game初始化完成\n\n";
+
+	int login_user_id;
+	bool already_login = 0;
+	while (1 and !already_login)
+	{
+		cout << "按下相应按键执行操作:\n1.用户登录\n2.用户注册\nESC.退出程序\n";
+		bool game_exit = 0;
+		if (_kbhit)
+		{
+			char ch = _getch();
+			User_Info new_user;//如果注册的话
+			string login_user_name;
+			string login_user_password;
+			switch (ch)
+			{
+			case '1'://log in
+				cout << "请输入你的昵称：\n";
+				cin >> login_user_name;
+				fflush(stdin);
+				login_user_id = user.GetId(login_user_name);
+				if (login_user_id == -1)//不存在
+				{
+					cout << "看起来系统并不存在昵称为" << login_user_name << "的用户\n需要注册一个昵称为" << login_user_name << "的用户吗？\n" << ask_for_check;
+					if (_getch() == 89)
+					{
+						new_user.id_ = rand() % 100000;
+						new_user.name_ = login_user_name;
+						cout << "输入你的用户密码，请不要使用空格:\n";
+						cin >> new_user.password_;
+						user.AddUser(new_user);
+						cout << "注册成功，请重新登录\n" << kick_to_continue;
+						_getch();
+					}
+				}//存在
+				else {
+					cout << "请输入密码:\n";
+					cin >> login_user_password;
+					if (user.CheckPassword(login_user_id, login_user_password))
+					{
+						cout << "登录成功\n" << kick_to_continue;
+						already_login = 1;
+						_getch();
+					}
+					else
+					{
+						login_user_id = -1;
+						cout << "登录失败\n" << kick_to_continue;
+						_getch();
+					}
+				}
+				break;
+			case '2'://sign in
+				cout << "请输入你的昵称：\n";
+				cin >> login_user_name;
+				new_user.id_ = rand() % 100000;
+				new_user.name_ = login_user_name;
+				cout << "输入你的用户密码，请不要使用空格:\n";
+				cin >> new_user.password_;
+				user.AddUser(new_user);
+				cout << "注册成功，请重新登录\n";
+				break;
+			case 27://ESC
+				game_exit = 1;
+				break;
+			default:
+				break;
+			}
+		}
+		if (game_exit)
+			break;
+		system("cls");
+	}
+
+	cout << "OKzi";
 
 	return 0;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <conio.h>
 
 class Admin
 {
