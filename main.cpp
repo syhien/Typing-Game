@@ -41,6 +41,8 @@ void AdminControl()
 		ifstream fin;
 		ofstream fout;
 		string new_text_input;
+		int delete_text_id;
+		bool delete_text = 0;
 		switch (ch)
 		{
 		case 1:
@@ -180,6 +182,31 @@ void AdminControl()
 				cout << "新增文本完成\n";
 			}
 			cout << kick_to_continue, _getch();
+			break;
+		case 9:
+			cin >> delete_text_id;
+			if (delete_text_id % 2)
+			{
+				for (auto i = text.begin(); i != text.end(); i++)
+					if (i->GetId() == delete_text_id)
+					{
+						text.erase(i);
+						cout << "删除成功\n" << kick_to_continue, _getch();
+						delete_text = 1;
+					}
+			}
+			else
+			{
+				for(auto i=word.begin();i!=word.end();i++)
+					if (i->GetId() == delete_text_id)
+					{
+						word.erase(i);
+						cout << "删除成功\n" << kick_to_continue, _getch();
+						delete_text = 1;
+					}
+			}
+			if(!delete_text)
+				cout << "删除失败\n" << kick_to_continue, _getch();
 			break;
 		case 0:
 			admin_logout = 1;
