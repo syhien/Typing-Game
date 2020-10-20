@@ -88,6 +88,15 @@ void AdminControl()
 				_getch();
 			}
 			break;
+		case '5':
+			cout << "输出所有文本，多句子文本以“~~”结尾\n";
+			for (auto i : word)
+				i.Print();
+			for (auto i : text)
+				i.Print();
+			cout << kick_to_continue;
+			_getch();
+			break;
 		case 'a':
 			admin.AdminChangePassword();
 			cout << kick_to_continue;
