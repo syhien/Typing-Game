@@ -20,6 +20,10 @@ User user;
 vector <Text> text;
 vector <Words> word;
 vector <Record> record;
+bool easy = 1;
+bool normal = 1;
+bool hard = 1;
+bool expert = 1;
 
 void AdminControl()
 {
@@ -210,6 +214,28 @@ void AdminControl()
 			}
 			if(!delete_text)
 				cout << "删除失败\n" << kick_to_continue, _getch();
+			break;
+		case 10:
+			cout << "Easy:" << (easy ? "开放" : "关闭") << endl;
+			cout << "Normal:" << (normal ? "开放" : "关闭") << endl;
+			cout << "Hard:" << (hard ? "开放" : "关闭") << endl;
+			cout << "Expert:" << (expert ? "开放" : "关闭") << endl;
+			cout << kick_to_continue, _getch();
+			break;
+		case 11:
+			cout << "Easy:" << (easy ? "开放" : "关闭") << "是否修改，按y确认修改，按其他按键不进行修改\n";
+			if (_getch() == 'y')
+				easy = !easy, cout << "修改成功\n";
+			cout << "Normal:" << (normal ? "开放" : "关闭") << "是否修改，按y确认修改，按其他按键不进行修改\n";
+			if (_getch() == 'y')
+				normal = !normal, cout << "修改成功\n";
+			cout << "Hard:" << (hard ? "开放" : "关闭") << "是否修改，按y确认修改，按其他按键不进行修改\n";
+			if (_getch() == 'y')
+				hard = !hard, cout << "修改成功\n";
+			cout << "Expert:" << (expert ? "开放" : "关闭") << "是否修改，按y确认修改，按其他按键不进行修改\n";
+			if (_getch() == 'y')
+				expert = !expert, cout << "修改成功\n";
+			cout << kick_to_continue, _getch();
 			break;
 		case 0:
 			admin_logout = 1;
