@@ -27,19 +27,28 @@ void AdminControl()
 	while (!admin_logout)
 	{
 		system("cls");
-		cout << "管理员操作:\n1.查看所有用户\n2.新增用户\n3.修改用户信息\n4.删除用户\n5.查看所有文本\n6.修改文本\n7.删除文本\n8.查看难度开放情况\n9.修改难度开放情况\na.修改管理员密码\nESC.退出\n";
-		char ch = _getch();
+		cout << "管理员操作:\n1.查看所有用户\n2.新增用户\n3.修改用户信息\n4.删除用户\n5.修改管理员密码\n6.查看所有文本\n7.修改文本\n8.新增文本\n9.删除文本\n10.查看难度开放情况\n11.修改难度开放情况\n0.退出\n";
+		int ch;
+		cin >> ch;
 		User_Info new_user;
 		int edit_user_id;
 		User_Info edit_user;
+		int edit_text_id;
+		bool edit_text = 0;
+		Words new_word;
+		int new_text_level;
+		Text new_text;
+		ifstream fin;
+		ofstream fout;
+		string new_text_input;
 		switch (ch)
 		{
-		case '1':
+		case 1:
 			user.PrintAllUser();
 			cout << kick_to_continue;
 			_getch();
 			break;
-		case '2':
+		case 2:
 			cout << "输入新用户昵称（不含空格）和密码（不含空格），用空格或换行分割:\n";
 			new_user.id_ = rand() % 100000;
 			cin >> new_user.name_ >> new_user.password_;
@@ -47,7 +56,7 @@ void AdminControl()
 			cout << "添加完成\n" << kick_to_continue;
 			_getch();
 			break;
-		case '3':
+		case 3:
 			cout << "输入待编辑新的用户的id\n";
 			cin >> edit_user_id;
 			edit_user = user.PopUser(edit_user_id);
@@ -73,7 +82,7 @@ void AdminControl()
 			cout << "修改完成\n" << kick_to_continue;
 			_getch();
 			break;
-		case '4':
+		case 4:
 			cout << "输入待删除用户id\n";
 			cin >> edit_user_id;
 			edit_user = user.PopUser(edit_user_id);
@@ -88,7 +97,12 @@ void AdminControl()
 				_getch();
 			}
 			break;
-		case '5':
+		case 5:
+			admin.AdminChangePassword();
+			cout << kick_to_continue;
+			_getch();
+			break;
+		case 6:
 			cout << "输出所有文本，多句子文本以“~~”结尾\n";
 			for (auto i : word)
 				i.Print();
@@ -97,12 +111,77 @@ void AdminControl()
 			cout << kick_to_continue;
 			_getch();
 			break;
-		case 'a':
-			admin.AdminChangePassword();
-			cout << kick_to_continue;
-			_getch();
+		case 7:
+			cout << "输入待修改文本的id\n";
+			cin >> edit_text_id;
+			if (edit_text_id % 2)//多句子
+			{
+				for (auto& i : text)
+					if (i.GetId() == edit_text_id)
+						edit_text = i.Edit();
+				if (!edit_text)
+				{
+					cout << "修改失败\n" << kick_to_continue, _getch();
+					break;
+				}
+				cout << "修改完成\n" << kick_to_continue, _getch();
+			}
+			else//多词组
+			{
+				for (auto &i : word)
+					if (i.GetId() == edit_text_id)
+						edit_text = i.Edit();
+				if (!edit_text)
+				{
+					cout << "修改失败\n" << kick_to_continue, _getch();
+					break;
+				}
+				cout << "修改完成\n" << kick_to_continue, _getch();
+			}
 			break;
-		case 27:
+		case 8:
+			cout << "默认新增多句子文本。按w新增多单词文本，按其他按键新增多句子文本\n";
+			if (_getch() == 'w')//单词
+			{
+				new_word.SetId(rand() % 100000);
+				while (new_word.GetId() % 2)
+					new_word.SetId(rand() % 100000);
+				cout << "输入新文本的难度(一个两位正整数），十位数（1，2，3，4）代表大致难度（easy,normal,hard,expert)，个位数代变大致难度下细分的难度\n";
+				cin >> new_text_level;
+				new_word.SetLevel(new_text_level);
+				fout.open("new_text.txt");
+				fout.close();
+				cout << "请在同目录的new_text.txt输入新文本，空格分割单词，输入完成" << kick_to_continue, _getch();
+				fin.open("new_text.txt");
+				while (fin >> new_text_input)
+					new_word.AddWord(new_text_input);
+				fin.close();
+				new_word.Print();
+				word.push_back(new_word);
+				cout << "新增文本完成\n";
+			}
+			else//句子
+			{
+				new_text.SetId(rand() % 100000);
+				while (new_text.GetId() % 2 == 0)
+					new_text.SetId(rand() % 100000);
+				cout << "输入新文本的难度(一个两位正整数），十位数（1，2，3，4）代表大致难度（easy,normal,hard,expert)，个位数代变大致难度下细分的难度\n";
+				cin >> new_text_level;
+				new_text.SetLevel(new_text_level);
+				fout.open("new_text.txt");
+				fout.close();
+				cout << "请在同目录的new_text.txt输入新文本，换行分割句子，输入完成" << kick_to_continue, _getch();
+				fin.open("new_text.txt");
+				while (getline(fin, new_text_input))
+					new_text.AddSentence(new_text_input);
+				fin.close();
+				new_text.Print();
+				text.push_back(new_text);
+				cout << "新增文本完成\n";
+			}
+			cout << kick_to_continue, _getch();
+			break;
+		case 0:
 			admin_logout = 1;
 			break;
 		default:
@@ -190,6 +269,7 @@ int main()
 			record.push_back(new_record);
 		}
 	}
+	fin.close();
 
 	cout << "打字游戏Typing Game初始化完成\n\n";
 

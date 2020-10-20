@@ -2,6 +2,9 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
+#include <conio.h>
+using namespace std;
 
 class Words
 {
@@ -10,6 +13,9 @@ public:
 	void SetLevel(int level);
 	void AddWord(std::string word);
 	void Print();
+	bool Edit(std::string file_address = "edit_text.txt");
+	int GetId();
+	int GetLevel();
 private:
 	int id_;
 	int level_;
@@ -23,6 +29,8 @@ public:
 	void SetLevel(int level);
 	void AddSentence(std::string sentence);
 	void Print();
+	int GetId();
+	bool Edit(string file_address = "edit_text.txt");
 private:
 	int id_;
 	int level_;
