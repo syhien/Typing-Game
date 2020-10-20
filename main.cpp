@@ -184,25 +184,28 @@ void AdminControl()
 			cout << kick_to_continue, _getch();
 			break;
 		case 9:
+			cout << "输入要删除的文本的id:\n";
 			cin >> delete_text_id;
 			if (delete_text_id % 2)
 			{
-				for (auto i = text.begin(); i != text.end(); i++)
+				for (auto i = text.begin(); i != text.end() and !delete_text; i++)
 					if (i->GetId() == delete_text_id)
 					{
 						text.erase(i);
 						cout << "删除成功\n" << kick_to_continue, _getch();
 						delete_text = 1;
+						break;
 					}
 			}
 			else
 			{
-				for(auto i=word.begin();i!=word.end();i++)
+				for(auto i=word.begin();i!=word.end() and !delete_text;i++)
 					if (i->GetId() == delete_text_id)
 					{
 						word.erase(i);
 						cout << "删除成功\n" << kick_to_continue, _getch();
 						delete_text = 1;
+						break;
 					}
 			}
 			if(!delete_text)
