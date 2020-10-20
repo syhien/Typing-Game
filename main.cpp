@@ -116,7 +116,9 @@ int main()
 	system("cls");
 	srand(time(0));
 	ifstream fin("game.data");
-	if (!fin)//无配置，新初始化游戏
+	if (!fin)
+		fin.open("game_template.data");
+	if (!fin)//无配置且无默认配置，新初始化游戏
 	{
 		admin.NewAdminSetPassword();
 	}

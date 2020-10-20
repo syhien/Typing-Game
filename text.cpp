@@ -28,7 +28,7 @@ void Text::AddSentence(std::string sentence)
 
 void Words::Print()
 {
-	std::cout << id_ << " " << level_ << std::endl;
+	std::cout << "id:" << id_ << " " << "level:" << level_ << std::endl;
 	for (auto i : words_)
 		std::cout << i << " ";
 	std::cout << std::endl;
@@ -36,7 +36,7 @@ void Words::Print()
 
 void Text::Print()
 {
-	std::cout << id_ << " " << level_ << std::endl;
+	std::cout << "id:" << id_ << " " << "level:" << level_ << std::endl;
 	for (auto i : sentences_)
 		std::cout << i << std::endl;
 	std::cout << "~~\n";
