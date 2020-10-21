@@ -9,6 +9,7 @@ public:
 	void AdminSetPassword(std::string password);
 	void AdminChangePassword();
 	bool CheckPassword(std::string password);
+	friend int main();
 private:
 	std::string password_;
 };

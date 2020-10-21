@@ -152,7 +152,7 @@ void AdminControl()
 				new_word.SetId(rand() % 100000);
 				while (new_word.GetId() % 2)
 					new_word.SetId(rand() % 100000);
-				cout << "输入新文本的难度(一个两位正整数），十位数（1，2，3，4）代表大致难度（easy,normal,hard,expert)，个位数代变大致难度下细分的难度\n";
+				cout << "输入新文本的难度(一个两位正整数），十位数（1，2，3，4）代表大致难度（easy,normal,hard,expert)，个位数代表大致难度下细分的难度\n";
 				cin >> new_text_level;
 				new_word.SetLevel(new_text_level);
 				fout.open("new_text.txt");
@@ -419,6 +419,31 @@ int main()
 			break;
 		system("cls");
 	}
+
+	ofstream fout;
+	fout.open("game.data", ios::out | ios::trunc);
+	fout << admin.password_ << endl;
+	fout << user.all_user_.size() << endl;
+	for (auto i : user.all_user_)
+		fout << i.id_ << " " << i.name_ << " " << i.password_ << endl;
+	fout << text.size() + word.size() << endl;
+	for (auto i : text)
+	{
+		fout << i.id_ << " " << i.sentences_.size() << " " << i.level_ << endl;
+		for (auto j : i.sentences_)
+			fout << j << endl;
+	}
+	for (auto i : word)
+	{
+		fout << i.id_ << " " << i.words_.size() << " " << i.level_ << endl;
+		for (auto j : i.words_)
+			fout << j << " ";
+		fout << endl;
+	}
+	fout << record.size() << endl;
+	for (auto i : record)
+		fout << i.time.tm_sec << " " << i.time.tm_min << " " << i.time.tm_hour << " " << i.time.tm_mday << " " << i.time.tm_mon << " " << i.time.tm_year << " " << i.time.tm_wday << " " << i.time.tm_yday << " " << i.time.tm_isdst << " " << i.used_time << " " << i.text_id << " " << i.user_id << endl;
+	fout.close();
 
 	cout << "\n给DEBUG的自己小小鼓励\n";
 

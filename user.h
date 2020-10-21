@@ -16,6 +16,7 @@ public:
 	bool CheckPassword(int id, std::string password);
 	void PrintAllUser();//¿ØÖÆÌ¨print
 	User_Info PopUser(int id);
+	friend int main();
 private:
 	std::vector <User_Info> all_user_;
 };

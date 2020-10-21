@@ -16,6 +16,7 @@ public:
 	bool Edit(std::string file_address = "edit_text.txt");
 	int GetId();
 	int GetLevel();
+	friend int main();
 private:
 	int id_;
 	int level_;
@@ -31,6 +32,7 @@ public:
 	void Print();
 	int GetId();
 	bool Edit(string file_address = "edit_text.txt");
+	friend int main();
 private:
 	int id_;
 	int level_;
