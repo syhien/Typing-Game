@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <conio.h>
+#include "record.h"
+#include "game.h"
 using namespace std;
 
 class Words
@@ -17,6 +19,8 @@ public:
 	int GetId();
 	int GetLevel();
 	friend int main();
+	friend Record NewEasyGame(int, Words);
+	friend Record NewNormalGame(int, Words);
 private:
 	int id_;
 	int level_;

@@ -6,7 +6,8 @@
 struct Record
 {
 	tm time;
-	int used_time;
+	long long used_time;
 	int text_id;
 	int user_id;
+	int right_percent;
 };

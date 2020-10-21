@@ -1,4 +1,4 @@
-//main.cppÊµÏÖ¶ÔÓÎÏ·È«¾ÖµÄ¿ØÖÆ
+ï»¿//main.cppå®ç°å¯¹æ¸¸æˆå…¨å±€çš„æ§åˆ¶
 
 #include "game.h"
 #include "admin.h"
@@ -10,10 +10,11 @@
 #include <vector>
 #include <string>
 #include <stdlib.h>
+#include <algorithm>
 using namespace std;
 
-const string ask_for_check = "£¨°´yÈ·ÈÏ£¬°´ÆäËû°´¼üÈ¡Ïû£©\n";
-const string kick_to_continue = "°´ÈÎÒâ°´¼ü¼ÌĞø\n";
+const string ask_for_check = "ï¼ˆæŒ‰yç¡®è®¤ï¼ŒæŒ‰å…¶ä»–æŒ‰é”®å–æ¶ˆï¼‰\n";
+const string kick_to_continue = "æŒ‰ä»»æ„æŒ‰é”®ç»§ç»­\n";
 
 Admin admin;
 User user;
@@ -31,7 +32,7 @@ void AdminControl()
 	while (!admin_logout)
 	{
 		system("cls");
-		cout << "¹ÜÀíÔ±²Ù×÷:\n1.²é¿´ËùÓĞÓÃ»§\n2.ĞÂÔöÓÃ»§\n3.ĞŞ¸ÄÓÃ»§ĞÅÏ¢\n4.É¾³ıÓÃ»§\n5.ĞŞ¸Ä¹ÜÀíÔ±ÃÜÂë\n6.²é¿´ËùÓĞÎÄ±¾\n7.ĞŞ¸ÄÎÄ±¾\n8.ĞÂÔöÎÄ±¾\n9.É¾³ıÎÄ±¾\n10.²é¿´ÄÑ¶È¿ª·ÅÇé¿ö\n11.ĞŞ¸ÄÄÑ¶È¿ª·ÅÇé¿ö\n0.ÍË³ö\n";
+		cout << "ç®¡ç†å‘˜æ“ä½œ:\n1.æŸ¥çœ‹æ‰€æœ‰ç”¨æˆ·\n2.æ–°å¢ç”¨æˆ·\n3.ä¿®æ”¹ç”¨æˆ·ä¿¡æ¯\n4.åˆ é™¤ç”¨æˆ·\n5.ä¿®æ”¹ç®¡ç†å‘˜å¯†ç \n6.æŸ¥çœ‹æ‰€æœ‰æ–‡æœ¬\n7.ä¿®æ”¹æ–‡æœ¬\n8.æ–°å¢æ–‡æœ¬\n9.åˆ é™¤æ–‡æœ¬\n10.æŸ¥çœ‹éš¾åº¦å¼€æ”¾æƒ…å†µ\n11.ä¿®æ”¹éš¾åº¦å¼€æ”¾æƒ…å†µ\n0.é€€å‡º\n";
 		int ch;
 		cin >> ch;
 		User_Info new_user;
@@ -55,51 +56,51 @@ void AdminControl()
 			_getch();
 			break;
 		case 2:
-			cout << "ÊäÈëĞÂÓÃ»§êÇ³Æ£¨²»º¬¿Õ¸ñ£©ºÍÃÜÂë£¨²»º¬¿Õ¸ñ£©£¬ÓÃ¿Õ¸ñ»ò»»ĞĞ·Ö¸î:\n";
+			cout << "è¾“å…¥æ–°ç”¨æˆ·æ˜µç§°ï¼ˆä¸å«ç©ºæ ¼ï¼‰å’Œå¯†ç ï¼ˆä¸å«ç©ºæ ¼ï¼‰ï¼Œç”¨ç©ºæ ¼æˆ–æ¢è¡Œåˆ†å‰²:\n";
 			new_user.id_ = rand() % 100000;
 			cin >> new_user.name_ >> new_user.password_;
 			user.AddUser(new_user);
-			cout << "Ìí¼ÓÍê³É\n" << kick_to_continue;
+			cout << "æ·»åŠ å®Œæˆ\n" << kick_to_continue;
 			_getch();
 			break;
 		case 3:
-			cout << "ÊäÈë´ı±à¼­ĞÂµÄÓÃ»§µÄid\n";
+			cout << "è¾“å…¥å¾…ç¼–è¾‘æ–°çš„ç”¨æˆ·çš„id\n";
 			cin >> edit_user_id;
 			edit_user = user.PopUser(edit_user_id);
 			if (edit_user.id_ == -1)
 			{
-				cout << "Ö¸¶¨idÓÃ»§²»´æÔÚ\n" << kick_to_continue;
+				cout << "æŒ‡å®šidç”¨æˆ·ä¸å­˜åœ¨\n" << kick_to_continue;
 				_getch();
 				break;
 			}
-			cout << "ÊÇ·ñĞŞ¸ÄêÇ³Æ£¿¸ÃÓÃ»§Ô­êÇ³ÆÎª:" << edit_user.name_ << endl << ask_for_check;
+			cout << "æ˜¯å¦ä¿®æ”¹æ˜µç§°ï¼Ÿè¯¥ç”¨æˆ·åŸæ˜µç§°ä¸º:" << edit_user.name_ << endl << ask_for_check;
 			if (_getch() == 'y')
 			{
-				cout << "ÊäÈëÆäĞÂêÇ³Æ:\n";
+				cout << "è¾“å…¥å…¶æ–°æ˜µç§°:\n";
 				cin >> edit_user.name_;
 			}
-			cout << "ÊÇ·ñĞŞ¸ÄÃÜÂë£¿¸ÃÓÃ»§Ô­ÃÜÂëÎª:" << edit_user.password_ << endl << ask_for_check;
+			cout << "æ˜¯å¦ä¿®æ”¹å¯†ç ï¼Ÿè¯¥ç”¨æˆ·åŸå¯†ç ä¸º:" << edit_user.password_ << endl << ask_for_check;
 			if (_getch() == 'y')
 			{
-				cout << "ÊäÈëÆäĞÂÃÜÂë:\n";
+				cout << "è¾“å…¥å…¶æ–°å¯†ç :\n";
 				cin >> edit_user.password_;
 			}
 			user.AddUser(edit_user);
-			cout << "ĞŞ¸ÄÍê³É\n" << kick_to_continue;
+			cout << "ä¿®æ”¹å®Œæˆ\n" << kick_to_continue;
 			_getch();
 			break;
 		case 4:
-			cout << "ÊäÈë´ıÉ¾³ıÓÃ»§id\n";
+			cout << "è¾“å…¥å¾…åˆ é™¤ç”¨æˆ·id\n";
 			cin >> edit_user_id;
 			edit_user = user.PopUser(edit_user_id);
 			if (edit_user.id_ == -1)
 			{
-				cout << "ÓÃ»§²»´æÔÚ£¬É¾³ıÊ§°Ü\n" << kick_to_continue;
+				cout << "ç”¨æˆ·ä¸å­˜åœ¨ï¼Œåˆ é™¤å¤±è´¥\n" << kick_to_continue;
 				_getch();
 			}
 			else
 			{
-				cout << "É¾³ı³É¹¦\n" << kick_to_continue;
+				cout << "åˆ é™¤æˆåŠŸ\n" << kick_to_continue;
 				_getch();
 			}
 			break;
@@ -109,7 +110,7 @@ void AdminControl()
 			_getch();
 			break;
 		case 6:
-			cout << "Êä³öËùÓĞÎÄ±¾£¬¶à¾ä×ÓÎÄ±¾ÒÔ¡°~~¡±½áÎ²\n";
+			cout << "è¾“å‡ºæ‰€æœ‰æ–‡æœ¬ï¼Œå¤šå¥å­æ–‡æœ¬ä»¥â€œ~~â€ç»“å°¾\n";
 			for (auto i : word)
 				i.Print();
 			for (auto i : text)
@@ -118,77 +119,77 @@ void AdminControl()
 			_getch();
 			break;
 		case 7:
-			cout << "ÊäÈë´ıĞŞ¸ÄÎÄ±¾µÄid\n";
+			cout << "è¾“å…¥å¾…ä¿®æ”¹æ–‡æœ¬çš„id\n";
 			cin >> edit_text_id;
-			if (edit_text_id % 2)//¶à¾ä×Ó
+			if (edit_text_id % 2)//å¤šå¥å­
 			{
 				for (auto& i : text)
 					if (i.GetId() == edit_text_id)
 						edit_text = i.Edit();
 				if (!edit_text)
 				{
-					cout << "ĞŞ¸ÄÊ§°Ü\n" << kick_to_continue, _getch();
+					cout << "ä¿®æ”¹å¤±è´¥\n" << kick_to_continue, _getch();
 					break;
 				}
-				cout << "ĞŞ¸ÄÍê³É\n" << kick_to_continue, _getch();
+				cout << "ä¿®æ”¹å®Œæˆ\n" << kick_to_continue, _getch();
 			}
-			else//¶à´Ê×é
+			else//å¤šè¯ç»„
 			{
 				for (auto &i : word)
 					if (i.GetId() == edit_text_id)
 						edit_text = i.Edit();
 				if (!edit_text)
 				{
-					cout << "ĞŞ¸ÄÊ§°Ü\n" << kick_to_continue, _getch();
+					cout << "ä¿®æ”¹å¤±è´¥\n" << kick_to_continue, _getch();
 					break;
 				}
-				cout << "ĞŞ¸ÄÍê³É\n" << kick_to_continue, _getch();
+				cout << "ä¿®æ”¹å®Œæˆ\n" << kick_to_continue, _getch();
 			}
 			break;
 		case 8:
-			cout << "Ä¬ÈÏĞÂÔö¶à¾ä×ÓÎÄ±¾¡£°´wĞÂÔö¶àµ¥´ÊÎÄ±¾£¬°´ÆäËû°´¼üĞÂÔö¶à¾ä×ÓÎÄ±¾\n";
-			if (_getch() == 'w')//µ¥´Ê
+			cout << "é»˜è®¤æ–°å¢å¤šå¥å­æ–‡æœ¬ã€‚æŒ‰wæ–°å¢å¤šå•è¯æ–‡æœ¬ï¼ŒæŒ‰å…¶ä»–æŒ‰é”®æ–°å¢å¤šå¥å­æ–‡æœ¬\n";
+			if (_getch() == 'w')//å•è¯
 			{
 				new_word.SetId(rand() % 100000);
 				while (new_word.GetId() % 2)
 					new_word.SetId(rand() % 100000);
-				cout << "ÊäÈëĞÂÎÄ±¾µÄÄÑ¶È(Ò»¸öÁ½Î»ÕıÕûÊı£©£¬Ê®Î»Êı£¨1£¬2£¬3£¬4£©´ú±í´óÖÂÄÑ¶È£¨easy,normal,hard,expert)£¬¸öÎ»Êı´ú±í´óÖÂÄÑ¶ÈÏÂÏ¸·ÖµÄÄÑ¶È\n";
+				cout << "è¾“å…¥æ–°æ–‡æœ¬çš„éš¾åº¦(ä¸€ä¸ªä¸¤ä½æ­£æ•´æ•°ï¼‰ï¼Œåä½æ•°ï¼ˆ1ï¼Œ2ï¼Œ3ï¼Œ4ï¼‰ä»£è¡¨å¤§è‡´éš¾åº¦ï¼ˆeasy,normal,hard,expert)ï¼Œä¸ªä½æ•°ä»£è¡¨å¤§è‡´éš¾åº¦ä¸‹ç»†åˆ†çš„éš¾åº¦\n";
 				cin >> new_text_level;
 				new_word.SetLevel(new_text_level);
 				fout.open("new_text.txt");
 				fout.close();
-				cout << "ÇëÔÚÍ¬Ä¿Â¼µÄnew_text.txtÊäÈëĞÂÎÄ±¾£¬¿Õ¸ñ·Ö¸îµ¥´Ê£¬ÊäÈëÍê³É" << kick_to_continue, _getch();
+				cout << "è¯·åœ¨åŒç›®å½•çš„new_text.txtè¾“å…¥æ–°æ–‡æœ¬ï¼Œç©ºæ ¼åˆ†å‰²å•è¯ï¼Œè¾“å…¥å®Œæˆ" << kick_to_continue, _getch();
 				fin.open("new_text.txt");
 				while (fin >> new_text_input)
 					new_word.AddWord(new_text_input);
 				fin.close();
 				new_word.Print();
 				word.push_back(new_word);
-				cout << "ĞÂÔöÎÄ±¾Íê³É\n";
+				cout << "æ–°å¢æ–‡æœ¬å®Œæˆ\n";
 			}
-			else//¾ä×Ó
+			else//å¥å­
 			{
 				new_text.SetId(rand() % 100000);
 				while (new_text.GetId() % 2 == 0)
 					new_text.SetId(rand() % 100000);
-				cout << "ÊäÈëĞÂÎÄ±¾µÄÄÑ¶È(Ò»¸öÁ½Î»ÕıÕûÊı£©£¬Ê®Î»Êı£¨1£¬2£¬3£¬4£©´ú±í´óÖÂÄÑ¶È£¨easy,normal,hard,expert)£¬¸öÎ»Êı´ú±ä´óÖÂÄÑ¶ÈÏÂÏ¸·ÖµÄÄÑ¶È\n";
+				cout << "è¾“å…¥æ–°æ–‡æœ¬çš„éš¾åº¦(ä¸€ä¸ªä¸¤ä½æ­£æ•´æ•°ï¼‰ï¼Œåä½æ•°ï¼ˆ1ï¼Œ2ï¼Œ3ï¼Œ4ï¼‰ä»£è¡¨å¤§è‡´éš¾åº¦ï¼ˆeasy,normal,hard,expert)ï¼Œä¸ªä½æ•°ä»£å˜å¤§è‡´éš¾åº¦ä¸‹ç»†åˆ†çš„éš¾åº¦\n";
 				cin >> new_text_level;
 				new_text.SetLevel(new_text_level);
 				fout.open("new_text.txt");
 				fout.close();
-				cout << "ÇëÔÚÍ¬Ä¿Â¼µÄnew_text.txtÊäÈëĞÂÎÄ±¾£¬»»ĞĞ·Ö¸î¾ä×Ó£¬ÊäÈëÍê³É" << kick_to_continue, _getch();
+				cout << "è¯·åœ¨åŒç›®å½•çš„new_text.txtè¾“å…¥æ–°æ–‡æœ¬ï¼Œæ¢è¡Œåˆ†å‰²å¥å­ï¼Œè¾“å…¥å®Œæˆ" << kick_to_continue, _getch();
 				fin.open("new_text.txt");
 				while (getline(fin, new_text_input))
 					new_text.AddSentence(new_text_input);
 				fin.close();
 				new_text.Print();
 				text.push_back(new_text);
-				cout << "ĞÂÔöÎÄ±¾Íê³É\n";
+				cout << "æ–°å¢æ–‡æœ¬å®Œæˆ\n";
 			}
 			cout << kick_to_continue, _getch();
 			break;
 		case 9:
-			cout << "ÊäÈëÒªÉ¾³ıµÄÎÄ±¾µÄid:\n";
+			cout << "è¾“å…¥è¦åˆ é™¤çš„æ–‡æœ¬çš„id:\n";
 			cin >> delete_text_id;
 			if (delete_text_id % 2)
 			{
@@ -196,7 +197,7 @@ void AdminControl()
 					if (i->GetId() == delete_text_id)
 					{
 						text.erase(i);
-						cout << "É¾³ı³É¹¦\n" << kick_to_continue, _getch();
+						cout << "åˆ é™¤æˆåŠŸ\n" << kick_to_continue, _getch();
 						delete_text = 1;
 						break;
 					}
@@ -207,34 +208,34 @@ void AdminControl()
 					if (i->GetId() == delete_text_id)
 					{
 						word.erase(i);
-						cout << "É¾³ı³É¹¦\n" << kick_to_continue, _getch();
+						cout << "åˆ é™¤æˆåŠŸ\n" << kick_to_continue, _getch();
 						delete_text = 1;
 						break;
 					}
 			}
 			if(!delete_text)
-				cout << "É¾³ıÊ§°Ü\n" << kick_to_continue, _getch();
+				cout << "åˆ é™¤å¤±è´¥\n" << kick_to_continue, _getch();
 			break;
 		case 10:
-			cout << "Easy:" << (easy ? "¿ª·Å" : "¹Ø±Õ") << endl;
-			cout << "Normal:" << (normal ? "¿ª·Å" : "¹Ø±Õ") << endl;
-			cout << "Hard:" << (hard ? "¿ª·Å" : "¹Ø±Õ") << endl;
-			cout << "Expert:" << (expert ? "¿ª·Å" : "¹Ø±Õ") << endl;
+			cout << "Easy:" << (easy ? "å¼€æ”¾" : "å…³é—­") << endl;
+			cout << "Normal:" << (normal ? "å¼€æ”¾" : "å…³é—­") << endl;
+			cout << "Hard:" << (hard ? "å¼€æ”¾" : "å…³é—­") << endl;
+			cout << "Expert:" << (expert ? "å¼€æ”¾" : "å…³é—­") << endl;
 			cout << kick_to_continue, _getch();
 			break;
 		case 11:
-			cout << "Easy:" << (easy ? "¿ª·Å" : "¹Ø±Õ") << "ÊÇ·ñĞŞ¸Ä£¬°´yÈ·ÈÏĞŞ¸Ä£¬°´ÆäËû°´¼ü²»½øĞĞĞŞ¸Ä\n";
+			cout << "Easy:" << (easy ? "å¼€æ”¾" : "å…³é—­") << "æ˜¯å¦ä¿®æ”¹ï¼ŒæŒ‰yç¡®è®¤ä¿®æ”¹ï¼ŒæŒ‰å…¶ä»–æŒ‰é”®ä¸è¿›è¡Œä¿®æ”¹\n";
 			if (_getch() == 'y')
-				easy = !easy, cout << "ĞŞ¸Ä³É¹¦\n";
-			cout << "Normal:" << (normal ? "¿ª·Å" : "¹Ø±Õ") << "ÊÇ·ñĞŞ¸Ä£¬°´yÈ·ÈÏĞŞ¸Ä£¬°´ÆäËû°´¼ü²»½øĞĞĞŞ¸Ä\n";
+				easy = !easy, cout << "ä¿®æ”¹æˆåŠŸ\n";
+			cout << "Normal:" << (normal ? "å¼€æ”¾" : "å…³é—­") << "æ˜¯å¦ä¿®æ”¹ï¼ŒæŒ‰yç¡®è®¤ä¿®æ”¹ï¼ŒæŒ‰å…¶ä»–æŒ‰é”®ä¸è¿›è¡Œä¿®æ”¹\n";
 			if (_getch() == 'y')
-				normal = !normal, cout << "ĞŞ¸Ä³É¹¦\n";
-			cout << "Hard:" << (hard ? "¿ª·Å" : "¹Ø±Õ") << "ÊÇ·ñĞŞ¸Ä£¬°´yÈ·ÈÏĞŞ¸Ä£¬°´ÆäËû°´¼ü²»½øĞĞĞŞ¸Ä\n";
+				normal = !normal, cout << "ä¿®æ”¹æˆåŠŸ\n";
+			cout << "Hard:" << (hard ? "å¼€æ”¾" : "å…³é—­") << "æ˜¯å¦ä¿®æ”¹ï¼ŒæŒ‰yç¡®è®¤ä¿®æ”¹ï¼ŒæŒ‰å…¶ä»–æŒ‰é”®ä¸è¿›è¡Œä¿®æ”¹\n";
 			if (_getch() == 'y')
-				hard = !hard, cout << "ĞŞ¸Ä³É¹¦\n";
-			cout << "Expert:" << (expert ? "¿ª·Å" : "¹Ø±Õ") << "ÊÇ·ñĞŞ¸Ä£¬°´yÈ·ÈÏĞŞ¸Ä£¬°´ÆäËû°´¼ü²»½øĞĞĞŞ¸Ä\n";
+				hard = !hard, cout << "ä¿®æ”¹æˆåŠŸ\n";
+			cout << "Expert:" << (expert ? "å¼€æ”¾" : "å…³é—­") << "æ˜¯å¦ä¿®æ”¹ï¼ŒæŒ‰yç¡®è®¤ä¿®æ”¹ï¼ŒæŒ‰å…¶ä»–æŒ‰é”®ä¸è¿›è¡Œä¿®æ”¹\n";
 			if (_getch() == 'y')
-				expert = !expert, cout << "ĞŞ¸Ä³É¹¦\n";
+				expert = !expert, cout << "ä¿®æ”¹æˆåŠŸ\n";
 			cout << kick_to_continue, _getch();
 			break;
 		case 0:
@@ -253,17 +254,17 @@ int main()
 	ifstream fin("game.data");
 	if (!fin)
 		fin.open("game_template.data");
-	if (!fin)//ÎŞÅäÖÃÇÒÎŞÄ¬ÈÏÅäÖÃ£¬ĞÂ³õÊ¼»¯ÓÎÏ·
+	if (!fin)//æ— é…ç½®ä¸”æ— é»˜è®¤é…ç½®ï¼Œæ–°åˆå§‹åŒ–æ¸¸æˆ
 	{
 		admin.NewAdminSetPassword();
 	}
-	else//ÓĞÅäÖÃ£¬´ÓÅäÖÃ³õÊ¼»¯ÓÎÏ·
+	else//æœ‰é…ç½®ï¼Œä»é…ç½®åˆå§‹åŒ–æ¸¸æˆ
 	{
-		//¶Á¹ÜÀíÔ±
+		//è¯»ç®¡ç†å‘˜
 		string admin_password;
 		fin >> admin_password;
 		admin.AdminSetPassword(admin_password);
-		//¶ÁÓÃ»§
+		//è¯»ç”¨æˆ·
 		int num_of_user;
 		fin >> num_of_user;
 		for (int i = 0; i < num_of_user; i++)
@@ -274,7 +275,7 @@ int main()
 			fin >> user_id >> user_name >> user_password;
 			user.AddUser({ user_id,user_name,user_password });
 		}
-		//¶ÁÎÄ±¾
+		//è¯»æ–‡æœ¬
 		int num_of_text;
 		fin >> num_of_text;
 		for (int i = 0; i < num_of_text; i++)
@@ -282,7 +283,7 @@ int main()
 			int text_id;
 			int text_level;
 			fin >> text_id;
-			if (text_id % 2)//¶ÁÎÄÕÂ
+			if (text_id % 2)//è¯»æ–‡ç« 
 			{
 				int num_of_sentences;
 				Text new_text;
@@ -299,7 +300,7 @@ int main()
 				}
 				text.push_back(new_text);
 			}
-			else//¶Áµ¥´Ê
+			else//è¯»å•è¯
 			{
 				int num_of_words;
 				fin >> num_of_words >> text_level;
@@ -315,97 +316,97 @@ int main()
 				word.push_back(new_word);
 			}
 		}
-		//¶Á¼ÇÂ¼
+		//è¯»è®°å½•
 		int num_of_records;
 		fin >> num_of_records;
 		for (int i = 0; i < num_of_records; i++)
 		{
 			Record new_record;
-			fin >> new_record.time.tm_sec >> new_record.time.tm_min >> new_record.time.tm_hour >> new_record.time.tm_mday >> new_record.time.tm_mon >> new_record.time.tm_year >> new_record.time.tm_wday >> new_record.time.tm_yday >> new_record.time.tm_isdst >> new_record.used_time >> new_record.text_id >> new_record.user_id;
+			fin >> new_record.time.tm_sec >> new_record.time.tm_min >> new_record.time.tm_hour >> new_record.time.tm_mday >> new_record.time.tm_mon >> new_record.time.tm_year >> new_record.time.tm_wday >> new_record.time.tm_yday >> new_record.time.tm_isdst >> new_record.used_time >> new_record.text_id >> new_record.user_id >> new_record.right_percent;
 			record.push_back(new_record);
 		}
 	}
 	fin.close();
 
-	cout << "´ò×ÖÓÎÏ·Typing Game³õÊ¼»¯Íê³É\n\n";
+	cout << "æ‰“å­—æ¸¸æˆTyping Gameåˆå§‹åŒ–å®Œæˆ\n\n";
 
 	int login_user_id;
 	bool already_login = 0;
+	bool game_exit = 0;
 	while (!already_login)
 	{
-		cout << "°´ÏÂÏàÓ¦°´¼üÖ´ĞĞ²Ù×÷:\n1.ÓÃ»§µÇÂ¼\n2.ÓÃ»§×¢²á\nESC.ÍË³ö³ÌĞò\n";
-		bool game_exit = 0;
+		cout << "æŒ‰ä¸‹ç›¸åº”æŒ‰é”®æ‰§è¡Œæ“ä½œ:\n1.ç”¨æˆ·ç™»å½•\n2.ç”¨æˆ·æ³¨å†Œ\nESC.é€€å‡ºç¨‹åº\n";
 		if (_kbhit)
 		{
 			char ch = _getch();
-			User_Info new_user;//Èç¹û×¢²áµÄ»°
+			User_Info new_user;//å¦‚æœæ³¨å†Œçš„è¯
 			string login_user_name;
 			string login_user_password;
 			string admin_password;
 			switch (ch)
 			{
 			case '1'://log in
-				cout << "ÇëÊäÈëÄãµÄêÇ³Æ£º\n";
+				cout << "è¯·è¾“å…¥ä½ çš„æ˜µç§°ï¼š\n";
 				cin >> login_user_name;
 				if (login_user_name == "admin" or login_user_name == "Admin")
 				{
-					cout << "ÊäÈë¹ÜÀíÔ±ÃÜÂëÒÔÑéÖ¤Éí·İ:\n";
+					cout << "è¾“å…¥ç®¡ç†å‘˜å¯†ç ä»¥éªŒè¯èº«ä»½:\n";
 					cin >> admin_password;
 					if (admin.CheckPassword(admin_password))
 					{
 						AdminControl();
-						cout << "\nÍË³ö¹ÜÀíÔ±Éí·İ\n" << kick_to_continue;
+						cout << "\né€€å‡ºç®¡ç†å‘˜èº«ä»½\n" << kick_to_continue;
 						_getch();
 						break;
 					}
 					else
 					{
-						cout << "¹ÜÀíÔ±ÃÜÂë´íÎó\n" << kick_to_continue;
+						cout << "ç®¡ç†å‘˜å¯†ç é”™è¯¯\n" << kick_to_continue;
 						_getch();
 						break;
 					}
 				}
 				login_user_id = user.GetId(login_user_name);
-				if (login_user_id == -1)//²»´æÔÚ
+				if (login_user_id == -1)//ä¸å­˜åœ¨
 				{
-					cout << "¿´ÆğÀ´ÏµÍ³²¢²»´æÔÚêÇ³ÆÎª" << login_user_name << "µÄÓÃ»§\nĞèÒª×¢²áÒ»¸öêÇ³ÆÎª" << login_user_name << "µÄÓÃ»§Âğ£¿\n" << ask_for_check;
+					cout << "çœ‹èµ·æ¥ç³»ç»Ÿå¹¶ä¸å­˜åœ¨æ˜µç§°ä¸º" << login_user_name << "çš„ç”¨æˆ·\néœ€è¦æ³¨å†Œä¸€ä¸ªæ˜µç§°ä¸º" << login_user_name << "çš„ç”¨æˆ·å—ï¼Ÿ\n" << ask_for_check;
 					if (_getch() == 'y')
 					{
 						new_user.id_ = rand() % 100000;
 						new_user.name_ = login_user_name;
-						cout << "ÊäÈëÄãµÄÓÃ»§ÃÜÂë£¬Çë²»ÒªÊ¹ÓÃ¿Õ¸ñ:\n";
+						cout << "è¾“å…¥ä½ çš„ç”¨æˆ·å¯†ç ï¼Œè¯·ä¸è¦ä½¿ç”¨ç©ºæ ¼:\n";
 						cin >> new_user.password_;
 						user.AddUser(new_user);
-						cout << "×¢²á³É¹¦£¬ÇëÖØĞÂµÇÂ¼\n" << kick_to_continue;
+						cout << "æ³¨å†ŒæˆåŠŸï¼Œè¯·é‡æ–°ç™»å½•\n" << kick_to_continue;
 						_getch();
 					}
-				}//´æÔÚ
+				}//å­˜åœ¨
 				else {
-					cout << "ÇëÊäÈëÃÜÂë:\n";
+					cout << "è¯·è¾“å…¥å¯†ç :\n";
 					cin >> login_user_password;
 					if (user.CheckPassword(login_user_id, login_user_password))
 					{
-						cout << "µÇÂ¼³É¹¦\n" << kick_to_continue;
+						cout << "ç™»å½•æˆåŠŸ\n" << kick_to_continue;
 						already_login = 1;
 						_getch();
 					}
 					else
 					{
 						login_user_id = -1;
-						cout << "µÇÂ¼Ê§°Ü\n" << kick_to_continue;
+						cout << "ç™»å½•å¤±è´¥\n" << kick_to_continue;
 						_getch();
 					}
 				}
 				break;
 			case '2'://sign in
-				cout << "ÇëÊäÈëÄãµÄêÇ³Æ£º\n";
+				cout << "è¯·è¾“å…¥ä½ çš„æ˜µç§°ï¼š\n";
 				cin >> login_user_name;
 				new_user.id_ = rand() % 100000;
 				new_user.name_ = login_user_name;
-				cout << "ÊäÈëÄãµÄÓÃ»§ÃÜÂë£¬Çë²»ÒªÊ¹ÓÃ¿Õ¸ñ:\n";
+				cout << "è¾“å…¥ä½ çš„ç”¨æˆ·å¯†ç ï¼Œè¯·ä¸è¦ä½¿ç”¨ç©ºæ ¼:\n";
 				cin >> new_user.password_;
 				user.AddUser(new_user);
-				cout << "×¢²á³É¹¦£¬ÇëÖØĞÂµÇÂ¼\n" << kick_to_continue;
+				cout << "æ³¨å†ŒæˆåŠŸï¼Œè¯·é‡æ–°ç™»å½•\n" << kick_to_continue;
 				_getch();
 				break;
 			case 27://ESC
@@ -418,6 +419,89 @@ int main()
 		if (game_exit)
 			break;
 		system("cls");
+	}
+
+	while (!game_exit)
+	{
+		system("cls");
+		fflush(stdin);
+		cout << "å½“å‰ç™»å½•ç”¨æˆ·ï¼š" << user.GetName(login_user_id) << endl;
+		cout << "å¸Œæœ›åšäº›ä»€ä¹ˆå‘¢ï¼ŸæŒ‰ä¸‹æ“ä½œå‰å¯¹åº”çš„é”®ç›˜æŒ‰é”®å§\n1.å¼€å§‹æ–°æ¸¸æˆ\n2.å¼€å§‹æ–°çš„æŒ‘æˆ˜\n3.æŸ¥çœ‹è‡ªå·±çš„æ¸¸æˆè®°å½•\nESC.é€€å‡ºæ¸¸æˆ\n";
+		char ch;
+		ch = _getch();
+		char level_choose = ' ';
+		vector <int> text_able_to_choose;
+		int text_choose;
+		Record new_record;
+		switch (ch)
+		{
+		case '1':
+			cout << "è¦å¼€å§‹æ–°æ¸¸æˆå•¦\næ¸¸æˆçš„è¦æ±‚æ˜¯å°½å¯èƒ½å¿«åœ°ã€å°½å¯èƒ½æ­£ç¡®åœ°é”®å…¥ç»™å®šçš„è‹±æ–‡å•è¯ã€è‹±æ–‡å¥å­ï¼Œç”¨æ—¶å’Œæ­£ç¡®ç‡éƒ½æ˜¯è¯„åˆ¤æ¸¸æˆçš„æ ‡å‡†\nå‡†å¤‡å¥½äº†å—\n" << kick_to_continue, _getch();
+			system("cls");
+			cout << "å…ˆé€‰æ‹©ä¸€ä¸‹æƒ³è¦è¯•ä¸€è¯•çš„éš¾åº¦å§\nEasyæœ€ä¸ºç®€å•ï¼Œåªæœ‰å•è¯çš„è¾“å…¥ï¼Œè¾“å…¥è¿‡ç¨‹ä¸­å¯ä»¥é€€æ ¼ä¿®æ”¹ï¼Œæ¯ä¸ªå•è¯è¾“å…¥å®Œæˆéƒ½éœ€è¦å›è½¦\nNormalè¾ƒä¸ºç®€å•ï¼Œåªæœ‰å•è¯çš„è¾“å…¥ï¼Œä½†æ˜¯è¾“å…¥è¿‡ç¨‹ä¸­æŒ‰ä¸‹æŒ‰é”®å°±ä¸èƒ½ä¿®æ”¹ï¼Œæ¯ä¸ªå•è¯è¾“å…¥å®Œä¹‹åä¸éœ€è¦æ‰‹åŠ¨å›è½¦\nHardå°æœ‰éš¾åº¦ï¼Œåªæœ‰å¥å­çš„è¾“å…¥ï¼Œè¾“å…¥è¿‡ç¨‹ä¸­å¯ä»¥é€€æ ¼ä¿®æ”¹ï¼Œæ¯ä¸ªå¥å­è¾“å…¥å®Œæˆéƒ½éœ€è¦å›è½¦\nExpertæœ€å…·æŒ‘æˆ˜æ€§ï¼Œåªæœ‰å¥å­çš„è¾“å…¥ï¼Œä½†æ˜¯è¾“å…¥è¿‡ç¨‹ä¸­æŒ‰ä¸‹æŒ‰é”®å°±ä¸èƒ½ä¿®æ”¹ï¼Œæ¯ä¸ªå¥å­è¾“å…¥å®Œä¹‹åä¸éœ€è¦æ‰‹åŠ¨å›è½¦\næ¸©é¦¨æç¤ºï¼šæ¸¸æˆè¿‡ç¨‹ä¸­å¤§å°å†™ä¸ä¸¥æ ¼ï¼Œä½†æ˜¯æŒ‰ä¸‹å¤§å°å†™é”å®šé”®å¯èƒ½ä¼šè¢«åˆ¤ä¸ºå¤±è¯¯å“¦\n";
+			cout << "æŒ‰ä¸‹æ•°å­—æŒ‰é”®é€‰æ‹©éš¾åº¦ï¼š\n1.Easy\n2.Normal\n3.Hard\n4.Expert\n";
+			while (level_choose == ' ')
+			{
+				level_choose = _getch();
+				switch (level_choose)
+				{
+				case '1':
+					system("cls");
+					text_able_to_choose.clear();
+					for (auto i : word)
+						if (i.GetLevel() / 10 == 1)
+							text_able_to_choose.push_back(i.GetId());
+					if (text_able_to_choose.size() == 0)
+					{
+						cout << "è¯¥éš¾åº¦ç›®å‰æ²¡æœ‰å¯¹ä½ å¼€æ”¾çš„æ–‡æœ¬å‘¢\nè¯•è¯•åˆ«çš„éš¾åº¦ï¼Ÿ\n";
+						level_choose = ' ';
+						break;
+					}
+					for (auto i : word)
+						if (i.GetLevel() / 10 == 1)
+							i.Print();
+					cout << "æ‰“ç®—æŒ‘æˆ˜å“ªä¸ªæ–‡æœ¬å‘¢ï¼Ÿè¾“å…¥æƒ³è¦æŒ‘æˆ˜çš„æ–‡æœ¬çš„idå¹¶å›è½¦å§\n";
+					cin >> text_choose;
+					if (find(text_able_to_choose.begin(), text_able_to_choose.end(), text_choose) == text_able_to_choose.end())
+					{
+						cout << "å¥½åƒæ²¡æœ‰idä¸º" << text_choose << "çš„å¯é€‰æ–‡æœ¬å‘¢\nè¯•è¯•åˆ«çš„éš¾åº¦ï¼Ÿ\n";
+						level_choose = ' ';
+						break;
+					}
+					for (auto i : word)
+						if (i.GetId() == text_choose)
+							new_record = NewEasyGame(login_user_id, i);
+					record.push_back(new_record);
+					cout << kick_to_continue, _getch();
+					break;
+				case '2':
+
+					break;
+				case '3':
+
+					break;
+				case '4':
+
+					break;
+				default:
+					cout << "æ— æ³•ç†è§£çš„è¾“å…¥å‘¢\næŒ‰ä¸‹æ•°å­—æŒ‰é”®é€‰æ‹©éš¾åº¦ï¼š1.Easy\n2.Normal\n3.Hard\n4.Expert\n";
+					level_choose = ' ';
+					break;
+				}
+			}
+			break;
+		case '2':
+
+			break;
+		case '3':
+
+			break;
+		case 27://ESC
+			game_exit = 1;
+			break;
+		default:
+			break;
+		}
 	}
 
 	ofstream fout;
@@ -442,10 +526,10 @@ int main()
 	}
 	fout << record.size() << endl;
 	for (auto i : record)
-		fout << i.time.tm_sec << " " << i.time.tm_min << " " << i.time.tm_hour << " " << i.time.tm_mday << " " << i.time.tm_mon << " " << i.time.tm_year << " " << i.time.tm_wday << " " << i.time.tm_yday << " " << i.time.tm_isdst << " " << i.used_time << " " << i.text_id << " " << i.user_id << endl;
+		fout << i.time.tm_sec << " " << i.time.tm_min << " " << i.time.tm_hour << " " << i.time.tm_mday << " " << i.time.tm_mon << " " << i.time.tm_year << " " << i.time.tm_wday << " " << i.time.tm_yday << " " << i.time.tm_isdst << " " << i.used_time << " " << i.text_id << " " << i.user_id << " " << i.right_percent << endl;
 	fout.close();
 
-	cout << "\n¸øDEBUGµÄ×Ô¼ºĞ¡Ğ¡¹ÄÀø\n";
+	cout << "\nç»™DEBUGçš„è‡ªå·±å°å°é¼“åŠ±\n";
 
 	return 0;
 }
