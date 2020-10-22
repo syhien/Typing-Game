@@ -520,7 +520,9 @@ int main()
 
 			break;
 		case '3':
-
+			for (auto i : record)
+				if (i.user_id == login_user_id)
+					;//输出记录
 			break;
 		case 27://ESC
 			game_exit = 1;
