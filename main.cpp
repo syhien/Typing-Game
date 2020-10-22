@@ -48,6 +48,8 @@ void AdminControl()
 		string new_text_input;
 		int delete_text_id;
 		bool delete_text = 0;
+		int record_count;
+		int record_to_delete;
 		switch (ch)
 		{
 		case 1:
@@ -260,7 +262,36 @@ void AdminControl()
 			cout << kick_to_continue, _getch();
 			break;
 		case 13:
-
+			record_count = 0;
+			for (auto i : record)
+			{
+				cout << "<" << record_count++ << ">\n";
+				if (i.text_id % 2)
+				{
+					for (auto j : text)
+						if (j.GetId() == i.text_id)
+							j.Print();
+				}
+				else
+				{
+					for (auto j : word)
+						if (j.GetId() == i.text_id)
+							j.Print();
+				}
+				user.PrintUser(i.user_id);
+				cout << "UTC +0 游戏时间：" << asctime(&i.time);
+				cout << "用时：" << i.used_time << "秒	正确率：" << i.right_percent << "%\n\n";
+			}
+			record_count = 0;
+			cout << "请输入想要删除的记录的某条记录尖括号内的数字，不进行删除请输入-1\n";
+			cin >> record_to_delete;
+			if (record_to_delete == -1)
+			{
+				cout << "删除失败\n" << kick_to_continue, _getch();
+				break;
+			}
+			record.erase(record.begin() + record_to_delete);
+			cout << "删除成功\n" << kick_to_continue, _getch();
 			break;
 		case 0:
 			admin_logout = 1;
