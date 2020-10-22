@@ -533,7 +533,33 @@ int main()
 					cout << kick_to_continue, _getch();
 					break;
 				case '4':
-
+					system("cls");
+					text_able_to_choose.clear();
+					for (auto i : text)
+						if (i.GetLevel() / 10 == 4)
+							text_able_to_choose.push_back(i.GetId());
+					if (text_able_to_choose.size() == 0)
+					{
+						cout << "该难度目前没有对你开放的文本呢\n试试别的难度？\n";
+						level_choose = ' ';
+						break;
+					}
+					for (auto i : text)
+						if (i.GetLevel() / 10 == 4)
+							i.Print();
+					cout << "打算挑战哪个文本呢？输入想要挑战的文本的id并回车吧\n";
+					cin >> text_choose;
+					if (find(text_able_to_choose.begin(), text_able_to_choose.end(), text_choose) == text_able_to_choose.end())
+					{
+						cout << "好像没有id为" << text_choose << "的可选文本呢\n试试别的难度？\n";
+						level_choose = ' ';
+						break;
+					}
+					for (auto i : text)
+						if (i.GetId() == text_choose)
+							new_record = NewExpertGame(login_user_id, i);
+					record.push_back(new_record);
+					cout << kick_to_continue, _getch();
 					break;
 				default:
 					cout << "无法理解的输入呢\n按下数字按键选择难度：\n1.Easy\n2.Normal\n3.Hard\n4.Expert\n";
