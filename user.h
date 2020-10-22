@@ -17,6 +17,7 @@ public:
 	void PrintAllUser();//¿ØÖÆÌ¨print
 	User_Info PopUser(int id);
 	friend int main();
+	void PrintUser(int id);
 private:
 	std::vector <User_Info> all_user_;
 };

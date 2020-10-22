@@ -32,7 +32,7 @@ void AdminControl()
 	while (!admin_logout)
 	{
 		system("cls");
-		cout << "管理员操作:\n1.查看所有用户\n2.新增用户\n3.修改用户信息\n4.删除用户\n5.修改管理员密码\n6.查看所有文本\n7.修改文本\n8.新增文本\n9.删除文本\n10.查看难度开放情况\n11.修改难度开放情况\n0.退出\n";
+		cout << "管理员操作:\n1.查看所有用户\n2.新增用户\n3.修改用户信息\n4.删除用户\n5.修改管理员密码\n6.查看所有文本\n7.修改文本\n8.新增文本\n9.删除文本\n10.查看难度开放情况\n11.修改难度开放情况\n12.查看所有游戏记录\n13.删除指定游戏记录\n0.退出\n";
 		int ch;
 		cin >> ch;
 		User_Info new_user;
@@ -237,6 +237,30 @@ void AdminControl()
 			if (_getch() == 'y')
 				expert = !expert, cout << "修改成功\n";
 			cout << kick_to_continue, _getch();
+			break;
+		case 12:
+			for (auto i : record)
+			{
+				if (i.text_id % 2)
+				{
+					for (auto j : text)
+						if (j.GetId() == i.text_id)
+							j.Print();
+				}
+				else
+				{
+					for (auto j : word)
+						if (j.GetId() == i.text_id)
+							j.Print();
+				}
+				user.PrintUser(i.user_id);
+				cout << "UTC +0 游戏时间：" << asctime(&i.time);
+				cout << "用时：" << i.used_time << "秒	正确率：" << i.right_percent << "%\n\n";
+			}
+			cout << kick_to_continue, _getch();
+			break;
+		case 13:
+
 			break;
 		case 0:
 			admin_logout = 1;
@@ -588,6 +612,7 @@ int main()
 							if (j.GetId() == i.text_id)
 								j.Print();
 					}
+					cout << "UTC +0 游戏时间：" << asctime(&i.time);
 					cout << "用时：" << i.used_time << "秒	正确率：" << i.right_percent << "%\n\n";
 				}
 			cout << kick_to_continue, _getch();

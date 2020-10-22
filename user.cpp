@@ -52,3 +52,13 @@ User_Info User::PopUser(int id)
 		}
 	return { -1,"","" };
 }
+
+void User::PrintUser(int id)
+{
+	for (auto i : all_user_)
+		if (i.id_ == id)
+		{
+			std::cout << "user id:" << i.id_ << "	user name:" << i.name_ << std::endl;
+			return;
+		}
+}
