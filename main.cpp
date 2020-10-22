@@ -520,9 +520,25 @@ int main()
 
 			break;
 		case '3':
+			cout << endl;
 			for (auto i : record)
 				if (i.user_id == login_user_id)
-					;//输出记录
+				{
+					if (i.text_id % 2)
+					{
+						for (auto j : text)
+							if (j.GetId() == i.text_id)
+								j.Print();
+					}
+					else
+					{
+						for (auto j : word)
+							if (j.GetId() == i.text_id)
+								j.Print();
+					}
+					cout << "用时：" << i.used_time << "秒	正确率：" << i.right_percent << "%\n\n";
+				}
+			cout << kick_to_continue, _getch();
 			break;
 		case 27://ESC
 			game_exit = 1;
