@@ -4,6 +4,7 @@
 #include <time.h>
 #include <conio.h>
 #include <math.h>
+#include <ctype.h>
 
 Record NewEasyGame(int user_id, class Words);
 Record NewNormalGame(int user_id, class Words);
