@@ -73,11 +73,41 @@ Record NewNormalGame(int user_id, class Words word)//不允许纠错
 	return record;
 }
 
-/*
-Record NewHardGame(int user_id, class Text)//允许纠错
+Record NewHardGame(int user_id, class Text text)//允许纠错
 {
+	system("cls");
+	Record record;
+	cout << "下面为你说明游戏规则\n1.只会出现句子\n2.输入的每个句子后都需要回车\n3.在回车之前发现的错误都可以退格重新输入\n4.还请留意标点和空格是否正确输入，最好保存输入法处于英文输入状态\n以上，加油吧\n";
+	cout << "按下任意键开始游戏\n", _getch();
+	string input_text;
+	cin.get();
+	int right_input = 0;
+	fflush(stdin);
+	time_t game_begin = time(0);
+	for (auto i : text.sentences_)
+	{
+		cout << i << endl;
+		getline(cin, input_text);
+		bool str_cmp = 1;
+		for (int j = 0; j < i.length() and str_cmp; j++)
+			if (abs(i[j] - input_text[j]) != abs('A' - 'a') and i[j] != input_text[j])
+				str_cmp = 0;
+		if (str_cmp)
+			right_input++;
+	}
+	time_t game_end = time(0);
+	tm* tm_game_end = gmtime(&game_end);
+	record.time = *tm_game_end;
+	record.used_time = game_end - game_begin;
+	record.text_id = text.GetId();
+	record.user_id = user_id;
+	record.right_percent = (int)((double)right_input / text.sentences_.size() * 100);
+	cout << "本次用时" << record.used_time << "秒\n";
+	cout << "句均用时" << (double)record.used_time / text.sentences_.size() << "秒\n";
+	cout << "本次正确率为" << record.right_percent << "%\n";
+	return record;
 }
-
+/*
 Record NewExpertGame(int user_id, class Text)//不允许纠错
 {
 }*/

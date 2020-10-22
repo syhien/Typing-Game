@@ -35,8 +35,11 @@ public:
 	void AddSentence(std::string sentence);
 	void Print();
 	int GetId();
+	int GetLevel();
 	bool Edit(string file_address = "edit_text.txt");
 	friend int main();
+	friend Record NewHardGame(int user_id, class Text text);
+	friend Record NewExpertGame(int user_id, class Text text);
 private:
 	int id_;
 	int level_;

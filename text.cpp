@@ -39,7 +39,7 @@ void Text::Print()
 	std::cout << "id:" << id_ << " " << "level:" << level_ << std::endl;
 	for (auto i : sentences_)
 		std::cout << i << std::endl;
-	std::cout << "~~\n";
+	std::cout << "~~END~~\n";
 }
 
 int Words::GetId()
@@ -74,6 +74,11 @@ bool Words::Edit(std::string file_address)
 int Text::GetId()
 {
 	return id_;
+}
+
+int Text::GetLevel()
+{
+	return level_;
 }
 
 bool Text::Edit(string file_address)

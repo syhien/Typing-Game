@@ -110,7 +110,7 @@ void AdminControl()
 			_getch();
 			break;
 		case 6:
-			cout << "输出所有文本，多句子文本以“~~”结尾\n";
+			cout << "输出所有文本，多句子文本以“~~END~~”结尾\n";
 			for (auto i : word)
 				i.Print();
 			for (auto i : text)
@@ -504,7 +504,33 @@ int main()
 					cout << kick_to_continue, _getch();
 					break;
 				case '3':
-
+					system("cls");
+					text_able_to_choose.clear();
+					for (auto i : text)
+						if (i.GetLevel() / 10 == 3)
+							text_able_to_choose.push_back(i.GetId());
+					if (text_able_to_choose.size() == 0)
+					{
+						cout << "该难度目前没有对你开放的文本呢\n试试别的难度？\n";
+						level_choose = ' ';
+						break;
+					}
+					for (auto i : text)
+						if (i.GetLevel() / 10 == 3)
+							i.Print();
+					cout << "打算挑战哪个文本呢？输入想要挑战的文本的id并回车吧\n";
+					cin >> text_choose;
+					if (find(text_able_to_choose.begin(), text_able_to_choose.end(), text_choose) == text_able_to_choose.end())
+					{
+						cout << "好像没有id为" << text_choose << "的可选文本呢\n试试别的难度？\n";
+						level_choose = ' ';
+						break;
+					}
+					for (auto i : text)
+						if (i.GetId() == text_choose)
+							new_record = NewHardGame(login_user_id, i);
+					record.push_back(new_record);
+					cout << kick_to_continue, _getch();
 					break;
 				case '4':
 
@@ -573,7 +599,7 @@ int main()
 		fout << i.time.tm_sec << " " << i.time.tm_min << " " << i.time.tm_hour << " " << i.time.tm_mday << " " << i.time.tm_mon << " " << i.time.tm_year << " " << i.time.tm_wday << " " << i.time.tm_yday << " " << i.time.tm_isdst << " " << i.used_time << " " << i.text_id << " " << i.user_id << " " << i.right_percent << endl;
 	fout.close();
 
-	cout << "\n给DEBUG的自己小小鼓励\n";
+	cout << "\n给DEBUG的自己小小鼓励\n";//DEBUG
 
 	return 0;
 }
