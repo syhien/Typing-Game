@@ -516,6 +516,7 @@ int main()
 		vector <int> text_able_to_choose;
 		int text_choose;
 		Record new_record;
+		int user_followed;
 		switch (ch)
 		{
 		case '1':
@@ -680,7 +681,7 @@ int main()
 			cout << "欢迎进入本游特色的社交系统，在这里和其他玩家一起贴贴吧\n";
 			if (user.GetPrivacy(login_user_id))
 			{
-				cout << "你当前的隐私设置为私密，这意味着你不能与他人社交、他人也无法在社交列表找到你，你希望修改隐私设置为社交吗？\n" << ask_for_check;
+				cout << "你当前的隐私设置为私密，这意味着你不能与他人社交、他人也无法在社交列表找到你，你希望修改隐私设置为社交吗？\n当隐私设置为社交时，你会为其他所有也为社交的玩家可见，你可以被他们关注，你的所有游戏记录都将公开\n" << ask_for_check;
 				if (_getch() == 'y')
 				{
 					user.ChangePrivacySetting(login_user_id);
@@ -693,9 +694,69 @@ int main()
 					break;
 				}
 			}
+			while (friend_system_choose == ' ')
+			{
+				system("cls");
+				cout << "按下按键选择社交操作：\n1.查看所有关注\n2.查看关注对象的所有游戏记录\n3.对关注对象的记录发起挑战\n4.添加关注\nESC.退出社交系统\n";
+				friend_system_choose = _getch();
+				switch (friend_system_choose)
+				{
+				case '1':
+					system("cls");
+					for (auto i : user.follow_list_)
+						if (i.first == login_user_id)
+							user.PrintUser(i.second);
+					cout << kick_to_continue, _getch();
+					friend_system_choose = ' ';
+					break;
+				case '2':
+					system("cls");
+					for (auto i : user.follow_list_)
+						if (i.first == login_user_id)
+							user.PrintUser(i.second);
+					cout << "输入想要查看记录的用户的id\n";
+					cin >> user_followed;
+					for (auto i : record)
+						if (i.user_id == user_followed)
+						{
+							if (i.text_id % 2)
+							{
+								for (auto j : text)
+									if (j.GetId() == i.text_id)
+										j.Print();
+							}
+							else
+							{
+								for (auto j : word)
+									if (j.GetId() == i.text_id)
+										j.Print();
+							}
+							cout << "UTC +0 游戏时间：" << asctime(&i.time);
+							cout << "用时：" << i.used_time << "秒	正确率：" << i.right_percent << "%\n\n";
+						}
+					cout << kick_to_continue, _getch();
+					friend_system_choose = ' ';
+					break;
+				case '3':
+					cout << "哈哈爷还没写\n" << kick_to_continue, _getch();
+					break;
+				case '4':
+					cout << "哈哈爷还没写\n" << kick_to_continue, _getch();
+					break;
+				case 27:
+					cout << "即将退出社交系统\n" << kick_to_continue, _getch();
+					friend_system_choose = 'e';
+					break;
+				default:
+					cout << "无法理解的输入呢\n按下数字按键选择难度：\n1.Easy\n2.Normal\n3.Hard\n4.Expert\n";
+					level_choose = ' ';
+					break;
+				}
+
+			}
 			break;
 		case '3':
-			cout << endl;
+			system("cls");
 			for (auto i : record)
 				if (i.user_id == login_user_id)
 				{
