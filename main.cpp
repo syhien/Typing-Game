@@ -701,7 +701,7 @@ int main()
 			while (friend_system_choose == ' ')
 			{
 				system("cls");
-				cout << "按下按键选择社交操作：\n1.查看所有关注\n2.查看关注对象的所有游戏记录\n3.对关注对象的记录发起挑战\n4.添加关注\nESC.退出社交系统\n";
+				cout << "按下按键选择社交操作：\n1.查看所有关注\n2.查看关注对象的所有游戏记录\n3.对关注对象的记录发起挑战\n4.添加关注\n5.取消关注\nESC.退出社交系统\n";
 				friend_system_choose = _getch();
 				switch (friend_system_choose)
 				{
@@ -817,6 +817,23 @@ int main()
 					}
 					user.AddFollow(login_user_id, user_followed);
 					cout << "关注成功\n" << kick_to_continue, _getch();
+					friend_system_choose = ' ';
+					break;
+				case '5':
+					system("cls");
+					for (auto i : user.follow_list_)
+						if (i.first == login_user_id)
+							user.PrintUser(i.second);
+					cout << "输入取消关注的用户的id，不取消关注输入-1\n";
+					cin >> user_followed;
+					if (user_followed == -1)
+					{
+						cout << "取消关注失败\n" << kick_to_continue, _getch();
+						friend_system_choose = ' ';
+						break;
+					}
+					user.follow_list_.erase(find(user.follow_list_.begin(), user.follow_list_.end(), make_pair(login_user_id, user_followed)));
+					cout << "取消关注成功\n" << kick_to_continue, _getch();
 					friend_system_choose = ' ';
 					break;
 				case 27:
