@@ -517,6 +517,10 @@ int main()
 		int text_choose;
 		Record new_record;
 		int user_followed;
+		int record_choose;
+		int record_count;
+		Record record_to_challenge;
+		vector <Record> record_able_to_challenge;
 		switch (ch)
 		{
 		case '1':
@@ -738,7 +742,61 @@ int main()
 					friend_system_choose = ' ';
 					break;
 				case '3':
-					cout << "哈哈爷还没写\n" << kick_to_continue, _getch();
+					record_able_to_challenge.clear();
+					for (auto i : user.follow_list_)
+						if (i.first == login_user_id)
+							for (auto j : record)
+								if (j.user_id == i.second)
+									record_able_to_challenge.push_back(j);
+					record_count = 0;
+					for (auto i : record_able_to_challenge)
+					{
+						cout << "<" << record_count++ << ">\n";
+						if (i.text_id % 2)
+						{
+							for (auto j : text)
+								if (j.GetId() == i.text_id)
+									j.Print();
+						}
+						else
+						{
+							for (auto j : word)
+								if (j.GetId() == i.text_id)
+									j.Print();
+						}
+						cout << "UTC +0 游戏时间：" << asctime(&i.time);
+						cout << "用时：" << i.used_time << "秒	正确率：" << i.right_percent << "%\n\n";
+					}
+					cout << "输入想要挑战的记录前尖括号内的编号，放弃挑战输入-1\n";
+					cin >> record_choose;
+					if (record_choose == -1)
+					{
+						cout << "放弃挑战\n" << kick_to_continue, _getch();
+						friend_system_choose = ' ';
+						break;
+					}
+					record_to_challenge = record_able_to_challenge.at(record_choose);
+					for(auto i:word)
+						if (i.GetId() == record_to_challenge.text_id)
+						{
+							if (i.GetLevel() / 10 == 1)
+								new_record = NewEasyGame(login_user_id, i);
+							else
+								new_record = NewNormalGame(login_user_id, i);
+						}
+					for(auto i:text)
+						if (i.GetId() == record_to_challenge.text_id)
+						{
+							if (i.GetLevel() / 10 == 3)
+								new_record = NewHardGame(login_user_id, i);
+							else
+								new_record = NewExpertGame(login_user_id, i);
+						}
+					if (new_record.right_percent >= record_to_challenge.right_percent and new_record.used_time <= record_to_challenge.used_time)
+						cout << "挑战成功，不愧是你\n" << kick_to_continue, _getch();
+					else
+						cout << "挑战失败，不愧是你\n" << kick_to_continue, _getch();
+					friend_system_choose = ' ';
 					break;
 				case '4':
 					for(auto i:user.all_user_)
