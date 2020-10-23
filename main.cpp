@@ -905,8 +905,5 @@ int main()
 	for (auto i : record)
 		fout << i.time.tm_sec << " " << i.time.tm_min << " " << i.time.tm_hour << " " << i.time.tm_mday << " " << i.time.tm_mon << " " << i.time.tm_year << " " << i.time.tm_wday << " " << i.time.tm_yday << " " << i.time.tm_isdst << " " << i.used_time << " " << i.text_id << " " << i.user_id << " " << i.right_percent << endl;
 	fout.close();
-
-	cout << "\n给DEBUG的自己小小鼓励\n";//DEBUG
-
 	return 0;
 }
