@@ -342,6 +342,15 @@ int main()
 			fin >> user_id >> user_name >> user_password >> user_privacy;
 			user.AddUser({ user_id,user_name,user_password,(bool)user_privacy });
 		}
+		int num_of_follow;
+		fin >> num_of_follow;
+		for (int i = 0; i < num_of_follow; i++)
+		{
+			int user_follow;
+			int user_followed;
+			fin >> user_follow >> user_followed;
+			user.AddFollow(user_follow, user_followed);
+		}
 		//读文本
 		int num_of_text;
 		fin >> num_of_text;
@@ -503,6 +512,7 @@ int main()
 		char ch;
 		ch = _getch();
 		char level_choose = ' ';
+		char friend_system_choose = ' ';
 		vector <int> text_able_to_choose;
 		int text_choose;
 		Record new_record;
@@ -659,7 +669,6 @@ int main()
 					break;
 				}
 			}
-
 			break;
 		case '3':
 			cout << endl;
@@ -697,6 +706,9 @@ int main()
 	fout << user.all_user_.size() << endl;
 	for (auto i : user.all_user_)
 		fout << i.id_ << " " << i.name_ << " " << i.password_ << " " << i.privacy_ << endl;
+	fout << user.follow_list_.size() << endl;
+	for (auto i : user.follow_list_)
+		fout << i.first << " " << i.second << endl;
 	fout << text.size() + word.size() << endl;
 	for (auto i : text)
 	{

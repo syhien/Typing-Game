@@ -78,3 +78,8 @@ void User::ChangePrivacySetting(int id)
 		if (i.id_ == id)
 			i.privacy_ = !i.privacy_;
 }
+
+void User::AddFollow(int user_follow, int user_followed)
+{
+	follow_list_.push_back(std::make_pair(user_follow, user_followed));
+}

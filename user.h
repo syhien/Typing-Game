@@ -14,6 +14,7 @@ public:
 	std::string GetName(int id);
 	int GetId(std::string name);//Ê§°Ü·µ»Ø-1
 	void AddUser(User_Info new_user);
+	void AddFollow(int user_follow, int user_followed);
 	bool CheckPassword(int id, std::string password);
 	void PrintAllUser();//¿ØÖÆÌ¨print
 	User_Info PopUser(int id);
@@ -23,4 +24,5 @@ public:
 	void ChangePrivacySetting(int id);
 private:
 	std::vector <User_Info> all_user_;
+	std::vector < std::pair<int, int> > follow_list_;
 };
