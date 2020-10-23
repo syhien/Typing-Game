@@ -741,7 +741,25 @@ int main()
 					cout << "哈哈爷还没写\n" << kick_to_continue, _getch();
 					break;
 				case '4':
-					cout << "哈哈爷还没写\n" << kick_to_continue, _getch();
+					for(auto i:user.all_user_)
+						if (i.privacy_ == 0 and i.id_ != login_user_id)
+						{
+							if (find(user.follow_list_.begin(), user.follow_list_.end(), make_pair(login_user_id, i.id_)) != user.follow_list_.end())
+								user.PrintUser(i.id_), cout << i.name_ << "已关注\n";
+							else
+								user.PrintUser(i.id_), cout << i.name_ << "未关注\n";
+						}
+					cout << "输入想要关注的用户的id，不关注输入-1\n";
+					cin >> user_followed;
+					if (user_followed == -1)
+					{
+						cout << "不进行关注\n" << kick_to_continue, _getch();
+						friend_system_choose = ' ';
+						break;
+					}
+					user.AddFollow(login_user_id, user_followed);
+					cout << "关注成功\n" << kick_to_continue, _getch();
+					friend_system_choose = ' ';
 					break;
 				case 27:
 					cout << "即将退出社交系统\n" << kick_to_continue, _getch();
