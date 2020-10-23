@@ -60,12 +60,16 @@ void AdminControl()
 		case 2:
 			cout << "输入新用户昵称（不含空格）和密码（不含空格），用空格或换行分割:\n";
 			new_user.id_ = rand() % 100000;
+			while (user.GetName(new_user.id_) != "")
+				new_user.id_ = rand() % 100000;
+			new_user.privacy_ = 1;
 			cin >> new_user.name_ >> new_user.password_;
 			user.AddUser(new_user);
 			cout << "添加完成\n" << kick_to_continue;
 			_getch();
 			break;
 		case 3:
+			user.PrintAllUser();
 			cout << "输入待编辑新的用户的id\n";
 			cin >> edit_user_id;
 			edit_user = user.PopUser(edit_user_id);
@@ -87,11 +91,18 @@ void AdminControl()
 				cout << "输入其新密码:\n";
 				cin >> edit_user.password_;
 			}
+			cout << "是否修改隐私设置？该用户原隐私状态为:" << (edit_user.privacy_ ? "私密" : "社交") << endl << ask_for_check;
+			if (_getch() == 'y')
+			{
+				cout << "已将其隐私设置取反\n";
+				edit_user.privacy_ = !edit_user.privacy_;
+			}
 			user.AddUser(edit_user);
 			cout << "修改完成\n" << kick_to_continue;
 			_getch();
 			break;
 		case 4:
+			user.PrintAllUser();
 			cout << "输入待删除用户id\n";
 			cin >> edit_user_id;
 			edit_user = user.PopUser(edit_user_id);
@@ -327,8 +338,9 @@ int main()
 			int user_id;
 			string user_name;
 			string user_password;
-			fin >> user_id >> user_name >> user_password;
-			user.AddUser({ user_id,user_name,user_password });
+			int user_privacy;
+			fin >> user_id >> user_name >> user_password >> user_privacy;
+			user.AddUser({ user_id,user_name,user_password,(bool)user_privacy });
 		}
 		//读文本
 		int num_of_text;
@@ -428,7 +440,10 @@ int main()
 					if (_getch() == 'y')
 					{
 						new_user.id_ = rand() % 100000;
+						while (user.GetName(new_user.id_) != "")
+							new_user.id_ = rand() % 100000;
 						new_user.name_ = login_user_name;
+						new_user.privacy_ = 1;
 						cout << "输入你的用户密码，请不要使用空格:\n";
 						cin >> new_user.password_;
 						user.AddUser(new_user);
@@ -457,7 +472,10 @@ int main()
 				cout << "请输入你的昵称：\n";
 				cin >> login_user_name;
 				new_user.id_ = rand() % 100000;
+				while (user.GetName(new_user.id_) != "")
+					new_user.id_ = rand() % 100000;
 				new_user.name_ = login_user_name;
+				new_user.privacy_ = 1;
 				cout << "输入你的用户密码，请不要使用空格:\n";
 				cin >> new_user.password_;
 				user.AddUser(new_user);
@@ -661,7 +679,7 @@ int main()
 	fout << admin.password_ << endl;
 	fout << user.all_user_.size() << endl;
 	for (auto i : user.all_user_)
-		fout << i.id_ << " " << i.name_ << " " << i.password_ << endl;
+		fout << i.id_ << " " << i.name_ << " " << i.password_ << " " << i.privacy_ << endl;
 	fout << text.size() + word.size() << endl;
 	for (auto i : text)
 	{

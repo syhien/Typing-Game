@@ -6,6 +6,7 @@ struct User_Info
 	int id_;
 	std::string name_;
 	std::string password_;
+	bool privacy_;
 };
 class User
 {

@@ -35,7 +35,7 @@ bool User::CheckPassword(int id, std::string password)
 void User::PrintAllUser()
 {
 	for (auto i : all_user_)
-		std::cout << "id:" << i.id_ << ", name:" << i.name_ << ", password:" << i.password_ << std::endl;
+		std::cout << "id:" << i.id_ << ", name:" << i.name_ << ", password:" << i.password_ << ", privacy:" << (i.privacy_ ? "Ë½ÃÜ" : "Éç½»") << std::endl;
 }
 
 User_Info User::PopUser(int id)
