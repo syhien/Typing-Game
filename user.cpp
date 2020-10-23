@@ -47,10 +47,11 @@ User_Info User::PopUser(int id)
 			user_found.id_ = id;
 			user_found.name_ = i->name_;
 			user_found.password_ = i->password_;
+			user_found.privacy_ = i->privacy_;
 			all_user_.erase(i);
 			return user_found;
 		}
-	return { -1,"","" };
+	return { -1,"","",1 };
 }
 
 void User::PrintUser(int id)
@@ -61,4 +62,19 @@ void User::PrintUser(int id)
 			std::cout << "user id:" << i.id_ << "	user name:" << i.name_ << std::endl;
 			return;
 		}
+}
+
+bool User::GetPrivacy(int id)
+{
+	for (auto i : all_user_)
+		if (i.id_ == id)
+			return i.privacy_;
+	return 1;
+}
+
+void User::ChangePrivacySetting(int id)
+{
+	for (auto &i : all_user_)
+		if (i.id_ == id)
+			i.privacy_ = !i.privacy_;
 }

@@ -499,7 +499,7 @@ int main()
 		system("cls");
 		fflush(stdin);
 		cout << "当前登录用户：" << user.GetName(login_user_id) << endl;
-		cout << "希望做些什么呢？按下操作前对应的键盘按键吧\n1.开始新游戏\n2.开始新的挑战\n3.查看自己的游戏记录\nESC.退出游戏\n";
+		cout << "希望做些什么呢？按下操作前对应的键盘按键吧\n1.开始新游戏\n2.进入社交系统\n3.查看自己的游戏记录\nESC.退出游戏\n";
 		char ch;
 		ch = _getch();
 		char level_choose = ' ';
@@ -642,6 +642,23 @@ int main()
 			}
 			break;
 		case '2':
+			system("cls");
+			cout << "欢迎进入本游特色的社交系统，在这里和其他玩家一起贴贴吧\n";
+			if (user.GetPrivacy(login_user_id))
+			{
+				cout << "你当前的隐私设置为私密，这意味着你不能与他人社交、他人也无法在社交列表找到你，你希望修改隐私设置为社交吗？\n" << ask_for_check;
+				if (_getch() == 'y')
+				{
+					user.ChangePrivacySetting(login_user_id);
+					cout << "隐私设置修改完成\n请重新进入社交系统\n" << kick_to_continue, _getch();
+					break;
+				}
+				else
+				{
+					cout << "隐私设置未修改\n" << kick_to_continue, _getch();
+					break;
+				}
+			}
 
 			break;
 		case '3':
