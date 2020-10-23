@@ -520,16 +520,22 @@ int main()
 		{
 		case '1':
 			cout << "要开始新游戏啦\n游戏的要求是尽可能快地、尽可能正确地键入给定的英文单词、英文句子，用时和正确率都是评判游戏的标准\n准备好了吗\n" << kick_to_continue, _getch();
-			system("cls");
-			cout << "先选择一下想要试一试的难度吧\nEasy最为简单，只有单词的输入，输入过程中可以退格修改，每个单词输入完成都需要回车\nNormal较为简单，只有单词的输入，但是输入过程中按下按键就不能修改，每个单词输入完之后不需要手动回车\nHard小有难度，只有句子的输入，输入过程中可以退格修改，每个句子输入完成都需要回车\nExpert最具挑战性，只有句子的输入，但是输入过程中按下按键就不能修改，每个句子输入完之后不需要手动回车\n温馨提示：游戏过程中大小写不严格，但是按下大小写锁定键可能会被判为失误哦\n";
-			cout << "按下数字按键选择难度：\n1.Easy\n2.Normal\n3.Hard\n4.Expert\n";
 			while (level_choose == ' ')
 			{
+				system("cls");
+				cout << "先选择一下想要试一试的难度吧\nEasy最为简单，只有单词的输入，输入过程中可以退格修改，每个单词输入完成都需要回车\nNormal较为简单，只有单词的输入，但是输入过程中按下按键就不能修改，每个单词输入完之后不需要手动回车\nHard小有难度，只有句子的输入，输入过程中可以退格修改，每个句子输入完成都需要回车\nExpert最具挑战性，只有句子的输入，但是输入过程中按下按键就不能修改，每个句子输入完之后不需要手动回车\n温馨提示：游戏过程中大小写不严格，但是按下大小写锁定键可能会被判为失误哦\n";
+				cout << "按下数字按键选择难度：\n1.Easy\n2.Normal\n3.Hard\n4.Expert\n";
 				level_choose = _getch();
 				switch (level_choose)
 				{
 				case '1':
 					system("cls");
+					if (!easy)
+					{
+						cout << "当前难度暂不开放\n" << kick_to_continue, _getch();
+						level_choose = ' ';
+						break;
+					}
 					text_able_to_choose.clear();
 					for (auto i : word)
 						if (i.GetLevel() / 10 == 1)
@@ -559,6 +565,12 @@ int main()
 					break;
 				case '2':
 					system("cls");
+					if (!normal)
+					{
+						cout << "当前难度暂不开放\n" << kick_to_continue, _getch();
+						level_choose = ' ';
+						break;
+					}
 					text_able_to_choose.clear();
 					for (auto i : word)
 						if (i.GetLevel() / 10 == 2)
@@ -588,6 +600,12 @@ int main()
 					break;
 				case '3':
 					system("cls");
+					if (!hard)
+					{
+						cout << "当前难度暂不开放\n" << kick_to_continue, _getch();
+						level_choose = ' ';
+						break;
+					}
 					text_able_to_choose.clear();
 					for (auto i : text)
 						if (i.GetLevel() / 10 == 3)
@@ -617,6 +635,12 @@ int main()
 					break;
 				case '4':
 					system("cls");
+					if (!expert)
+					{
+						cout << "当前难度暂不开放\n" << kick_to_continue, _getch();
+						level_choose = ' ';
+						break;
+					}
 					text_able_to_choose.clear();
 					for (auto i : text)
 						if (i.GetLevel() / 10 == 4)
